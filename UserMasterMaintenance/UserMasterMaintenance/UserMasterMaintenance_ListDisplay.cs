@@ -40,11 +40,9 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-			//クリックボタン設定
-			SetPushButton(Buttons.UpdataButton);
 
 			//画面遷移
-			TransitionScreen();
+			TransitionScreen(SetPushButton(Buttons.UpdataButton));
 		}
 
 		/// <summary>
@@ -57,11 +55,8 @@ namespace UserMasterMaintenance
 			//チェックボックス判定
 			//if (!IsPutCheckMarkOnlyOnce) return;
 
-			//クリックボタン設定
-			PropertiesClass properties = SetPushButton(Buttons.UpdataButton);
-
 			//画面遷移
-			TransitionScreen();
+			TransitionScreen(SetPushButton(Buttons.UpdataButton));
 
 		}
 
@@ -75,11 +70,8 @@ namespace UserMasterMaintenance
 			//チェックボックス判定
 			//if (!IsPutCheckMarkOnlyOnce) return;
 
-			//クリックボタン設定
-			SetPushButton(Buttons.DeleteButton);
-
 			//画面遷移
-			TransitionScreen();
+			TransitionScreen(SetPushButton(Buttons.DeleteButton));
 		}
 
 		/// <summary>
@@ -101,13 +93,12 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 画面遷移処理
 		/// </summary>
-		private void TransitionScreen()
+		private void TransitionScreen(PropertiesClass properties)
 		{
-			using (var InputDisplay = new UserMasterMaintenance_InputDisplay())
-			{
-				InputDisplay.ShowDialog();
-				return;
-			}
+			UserMasterMaintenance_InputDisplay inputDisplay = new UserMasterMaintenance_InputDisplay(properties);
+			inputDisplay.ShowDialog();
+			this.Close();
+			return;
 		}
 
 		/// <summary>
