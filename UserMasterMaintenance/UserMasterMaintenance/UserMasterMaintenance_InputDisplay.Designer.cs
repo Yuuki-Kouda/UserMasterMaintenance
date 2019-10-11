@@ -63,6 +63,7 @@
 			// 
 			// textBox1
 			// 
+			this.textBox1.Enabled = false;
 			this.textBox1.Location = new System.Drawing.Point(12, 49);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
@@ -72,6 +73,7 @@
 			// 
 			// textBox2
 			// 
+			this.textBox2.Enabled = false;
 			this.textBox2.Location = new System.Drawing.Point(12, 99);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
@@ -81,6 +83,7 @@
 			// 
 			// textBox3
 			// 
+			this.textBox3.Enabled = false;
 			this.textBox3.Location = new System.Drawing.Point(12, 149);
 			this.textBox3.Name = "textBox3";
 			this.textBox3.ReadOnly = true;
@@ -90,6 +93,7 @@
 			// 
 			// textBox4
 			// 
+			this.textBox4.Enabled = false;
 			this.textBox4.Location = new System.Drawing.Point(12, 199);
 			this.textBox4.Name = "textBox4";
 			this.textBox4.ReadOnly = true;
@@ -99,6 +103,7 @@
 			// 
 			// textBox5
 			// 
+			this.textBox5.Enabled = false;
 			this.textBox5.Location = new System.Drawing.Point(12, 249);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.ReadOnly = true;
@@ -130,6 +135,7 @@
 			// radioButton1
 			// 
 			this.radioButton1.AutoSize = true;
+			this.radioButton1.Checked = true;
 			this.radioButton1.Location = new System.Drawing.Point(48, 199);
 			this.radioButton1.Name = "radioButton1";
 			this.radioButton1.Size = new System.Drawing.Size(47, 16);
