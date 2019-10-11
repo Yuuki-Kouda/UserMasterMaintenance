@@ -146,6 +146,7 @@
 			// 
 			// radioButton2
 			// 
+			this.radioButton2.AutoCheck = false;
 			this.radioButton2.AutoSize = true;
 			this.radioButton2.Location = new System.Drawing.Point(101, 199);
 			this.radioButton2.Name = "radioButton2";
