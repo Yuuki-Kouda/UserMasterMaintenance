@@ -104,8 +104,8 @@ namespace UserMasterMaintenance
 		private void TransitionScreen(PropertiesClass properties)
 		{
 			UserMasterMaintenance_InputDisplay inputDisplay = new UserMasterMaintenance_InputDisplay(properties);
+			//listDisplay.Hide();
 			inputDisplay.ShowDialog();
-			this.Close();
 			return;
 		}
 
@@ -133,5 +133,6 @@ namespace UserMasterMaintenance
 			}
 			return properties;
 		}
+
 	}
 }
