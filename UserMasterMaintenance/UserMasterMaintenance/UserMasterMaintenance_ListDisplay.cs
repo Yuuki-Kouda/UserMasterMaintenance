@@ -29,9 +29,15 @@ namespace UserMasterMaintenance
 		//押下ボタン判定
 		private string IsDecisionPressButton { get; set; } = "";
 
-		//初期表示
-		//一覧データ取得
-		//一覧データ表示
+		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
+		{
+			//初期表示
+			PropertiesClass properties = new PropertiesClass();
+
+			//一覧データ取得
+			//一覧データ表示
+
+		}
 
 		/// <summary>
 		/// 追加ボタンクリック
