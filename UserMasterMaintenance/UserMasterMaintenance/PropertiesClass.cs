@@ -35,29 +35,32 @@ namespace UserMasterMaintenance
 		/// </summary>
 		public Buttons JudgeButtonPressed { get; set; }
 
-		/// <summary>
-		/// ID
-		/// </summary>
-		public string DataId { get; set; }
+		public class AccountData
+		{
+			/// <summary>
+			/// ID
+			/// </summary>
+			public string DataId { get; set; }
 
-		/// <summary>
-		/// 名前
-		/// </summary>
-		public string DataName { get; set; }
+			/// <summary>
+			/// 名前
+			/// </summary>
+			public string DataName { get; set; }
 
-		/// <summary>
-		/// 年齢
-		/// </summary>
-		public string DataAge { get; set; }
+			/// <summary>
+			/// 年齢
+			/// </summary>
+			public string DataAge { get; set; }
 
-		/// <summary>
-		/// 性別
-		/// </summary>
-		public bool DataGender { get; set; }
+			/// <summary>
+			/// 性別
+			/// </summary>
+			public bool DataGender { get; set; }
 
-		/// <summary>
-		/// 所属
-		/// </summary>
-		public string DataAffiliation { get; set; }
+			/// <summary>
+			/// 所属
+			/// </summary>
+			public string DataAffiliation { get; set; }
+		}
 	}
 }
