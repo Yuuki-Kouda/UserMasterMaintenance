@@ -141,6 +141,7 @@
 			this.Controls.Add(this.button1);
 			this.Name = "UserMasterMaintenance_ListDisplay";
 			this.Text = "UserMasterMaintenance";
+			this.Load += new System.EventHandler(this.UserMasterMaintenance_ListDisplay_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 
