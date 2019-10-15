@@ -20,7 +20,7 @@ namespace UserMasterMaintenance
 		enum Buttons
 		{
 			AddButton,
-			UpdataButton,
+			UpdateButton,
 			DeleteButton,
 		}
 
@@ -46,9 +46,8 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-
 			//画面遷移
-			TransitionScreen(SetPushButton(Buttons.UpdataButton));
+			TransitionScreen(SetPushButton(Buttons.AddButton));
 		}
 
 		/// <summary>
@@ -62,7 +61,7 @@ namespace UserMasterMaintenance
 			//if (!IsPutCheckMarkOnlyOnce) return;
 
 			//画面遷移
-			TransitionScreen(SetPushButton(Buttons.UpdataButton));
+			TransitionScreen(SetPushButton(Buttons.UpdateButton));
 
 		}
 
@@ -85,6 +84,9 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private void GetListData()
 		{
+			var usersJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
+			var departmentsJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+
 
 		}
 
@@ -121,7 +123,7 @@ namespace UserMasterMaintenance
 					properties.JudgeButtonPressed = PropertiesClass.Buttons.AddButton;
 					break;
 
-				case Buttons.UpdataButton:
+				case Buttons.UpdateButton:
 					properties.JudgeButtonPressed = PropertiesClass.Buttons.UpdateButton;
 					break;
 
