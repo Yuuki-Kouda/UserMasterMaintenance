@@ -37,8 +37,10 @@ namespace UserMasterMaintenance
 			PropertiesClass properties = new PropertiesClass();
 
 			//一覧データ取得
-			//一覧データ表示
+			GetListData(properties);
 
+			//一覧データ表示
+			ShowListData(properties);
 		}
 
 		/// <summary>
@@ -95,9 +97,17 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 一覧データ表示処理
 		/// </summary>
-		private void ShowListData()
+		private void ShowListData(PropertiesClass properties)
 		{
-
+			foreach (var usersData in properties.UsersDataList)
+			{
+				dataGridView1.Rows.Add(false,
+										usersData.DataId,
+										usersData.DataName,
+										usersData.DataAge,
+										usersData.DataGender,
+										usersData.DataAffiliation);
+			}
 		}
 
 		/// <summary>
