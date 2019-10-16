@@ -26,16 +26,44 @@ namespace UserMasterMaintenance
 		}
 
 		/// <summary>
-		/// 画面遷移判定プロパティ
+		/// 画面遷移判定
 		/// </summary>
 		public Screens IsDecisionScreenTransition { get; set; }
 
 		/// <summary>
-		/// 押下ボタン判定プロパティ
+		/// 押下ボタン判定
 		/// </summary>
 		public Buttons JudgeButtonPressed { get; set; }
 
-		public class AccountData
+			/// <summary>
+			/// ID
+			/// </summary>
+			public string PropertyId { get; set; }
+
+			/// <summary>
+			/// 名前
+			/// </summary>
+			public string PropertyName { get; set; }
+
+			/// <summary>
+			/// 年齢
+			/// </summary>
+			public string PropertyAge { get; set; }
+
+			/// <summary>
+			/// 性別
+			/// </summary>
+			public bool PropertyGender { get; set; }
+
+			/// <summary>
+			/// 所属
+			/// </summary>
+			public string PropertyAffiliation { get; set; }
+
+		/// <summary>
+		/// users.jsonデータ
+		/// </summary>
+		public class UsersData
 		{
 			/// <summary>
 			/// ID
@@ -62,5 +90,26 @@ namespace UserMasterMaintenance
 			/// </summary>
 			public string DataAffiliation { get; set; }
 		}
+
+		/// <summary>
+		/// departments.jsonデータ
+		/// </summary>
+		public class DepartmentsData
+		{
+			/// <summary>
+			/// 所属
+			/// </summary>
+			public string DataAffiliation { get; set; }
+		}
+
+		/// <summary>
+		/// ユーザー情報リスト
+		/// </summary>
+		public List<UsersData> UsersDataList { get; set; }
+
+		/// <summary>
+		/// 所属情報リスト
+		/// </summary>
+		public List<DepartmentsData> DepartmentsList { get; set; }
 	}
 }
