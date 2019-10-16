@@ -86,12 +86,27 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 一覧データ取得処理
 		/// </summary>
-		private void GetListData()
+		private PropertiesClass GetListData(PropertiesClass properties)
 		{
 			var usersJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
 			var departmentsJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+			string usersDataListJsonText = "";
+			string departmentsDataListJsonText = "";
 
+			using (StreamReader streamReader = new StreamReader(usersJsonFilePath))
+			{
+				usersDataListJsonText = streamReader.ReadToEnd();
+			}
+			using (StreamReader streamReader = new StreamReader(departmentsJsonFilePath))
+			{
+				departmentsDataListJsonText = streamReader.ReadToEnd();
+			}
 
+			//デシリアライズ
+			properties.UsersDataList = JsonConvert.DeserializeObject<List<PropertiesClass.UsersData>>(usersDataListJsonText);
+			properties.DepartmentsList = JsonConvert.DeserializeObject<List<PropertiesClass.DepartmentsData>>(departmentsDataListJsonText);
+
+			return properties;
 		}
 
 		/// <summary>
