@@ -187,6 +187,7 @@
 			this.Controls.Add(this.button1);
 			this.Name = "UserMasterMaintenance_InputDisplay";
 			this.Text = "UserMasterMaintenance";
+			this.Load += new System.EventHandler(this.UserMasterMaintenance_InputDisplay_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

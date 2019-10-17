@@ -2,15 +2,15 @@
 	{
 		"DataId": "dddd",
 		"DataName": "dddd",
-		"DataAge": "dddd",
-		"DataGender": true,
+		"DataAge": "33",
+		"DataGender": "男性",
 		"DataAffiliation": "エボルテック"
 	},
 	{
 		"DataId": "dddds",
 		"DataName": "dddds",
-		"DataAge": "dddds",
-		"DataGender": true,
+		"DataAge": "23",
+		"DataGender": "男性",
 		"DataAffiliation": "エボルテック"
 	}
 ]

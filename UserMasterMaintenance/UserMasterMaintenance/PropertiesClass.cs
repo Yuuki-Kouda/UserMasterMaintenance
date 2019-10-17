@@ -83,7 +83,7 @@ namespace UserMasterMaintenance
 			/// <summary>
 			/// 性別
 			/// </summary>
-			public bool DataGender { get; set; }
+			public string DataGender { get; set; }
 
 			/// <summary>
 			/// 所属

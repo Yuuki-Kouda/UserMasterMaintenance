@@ -28,17 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
+			this.usersDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.usersDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+			this.usersDataBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.チェックボックス = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.DataID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DataAffiliation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.usersDataClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.checkBoxDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.dataIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataAgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGenderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataAffiliationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataClassBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -71,64 +80,88 @@
 			this.button3.UseVisualStyleBackColor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
+			// usersDataBindingSource
+			// 
+			this.usersDataBindingSource.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
+			// 
+			// usersDataBindingSource1
+			// 
+			this.usersDataBindingSource1.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
+			// 
+			// usersDataBindingSource2
+			// 
+			this.usersDataBindingSource2.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
+			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.チェックボックス,
-            this.DataID,
-            this.DataName,
-            this.DataAge,
-            this.DataGender,
-            this.DataAffiliation});
+            this.checkBoxDataGridViewCheckBoxColumn,
+            this.dataIdDataGridViewTextBoxColumn,
+            this.dataNameDataGridViewTextBoxColumn,
+            this.dataAgeDataGridViewTextBoxColumn,
+            this.dataGenderDataGridViewTextBoxColumn,
+            this.dataAffiliationDataGridViewTextBoxColumn});
+			this.dataGridView1.DataSource = this.usersDataClassBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(12, 65);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 21;
 			this.dataGridView1.Size = new System.Drawing.Size(824, 373);
-			this.dataGridView1.TabIndex = 3;
+			this.dataGridView1.TabIndex = 4;
 			// 
-			// チェックボックス
+			// usersDataClassBindingSource
 			// 
-			this.チェックボックス.HeaderText = "";
-			this.チェックボックス.Name = "チェックボックス";
-			this.チェックボックス.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.チェックボックス.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.チェックボックス.Width = 30;
+			this.usersDataClassBindingSource.DataSource = typeof(UserMasterMaintenance.UsersDataClass);
 			// 
-			// DataID
+			// checkBoxDataGridViewCheckBoxColumn
 			// 
-			this.DataID.HeaderText = "ID";
-			this.DataID.Name = "DataID";
-			this.DataID.ReadOnly = true;
-			this.DataID.Width = 150;
+			this.checkBoxDataGridViewCheckBoxColumn.DataPropertyName = "CheckBox";
+			this.checkBoxDataGridViewCheckBoxColumn.FalseValue = "false";
+			this.checkBoxDataGridViewCheckBoxColumn.HeaderText = "";
+			this.checkBoxDataGridViewCheckBoxColumn.Name = "checkBoxDataGridViewCheckBoxColumn";
+			this.checkBoxDataGridViewCheckBoxColumn.TrueValue = "true";
+			this.checkBoxDataGridViewCheckBoxColumn.Width = 30;
 			// 
-			// DataName
+			// dataIdDataGridViewTextBoxColumn
 			// 
-			this.DataName.HeaderText = "名前";
-			this.DataName.Name = "DataName";
-			this.DataName.ReadOnly = true;
-			this.DataName.Width = 150;
+			this.dataIdDataGridViewTextBoxColumn.DataPropertyName = "DataId";
+			this.dataIdDataGridViewTextBoxColumn.HeaderText = "ID";
+			this.dataIdDataGridViewTextBoxColumn.Name = "dataIdDataGridViewTextBoxColumn";
+			this.dataIdDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dataIdDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// DataAge
+			// dataNameDataGridViewTextBoxColumn
 			// 
-			this.DataAge.HeaderText = "年齢";
-			this.DataAge.Name = "DataAge";
-			this.DataAge.ReadOnly = true;
-			this.DataAge.Width = 150;
+			this.dataNameDataGridViewTextBoxColumn.DataPropertyName = "DataName";
+			this.dataNameDataGridViewTextBoxColumn.HeaderText = "名前";
+			this.dataNameDataGridViewTextBoxColumn.Name = "dataNameDataGridViewTextBoxColumn";
+			this.dataNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dataNameDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// DataGender
+			// dataAgeDataGridViewTextBoxColumn
 			// 
-			this.DataGender.HeaderText = "性別";
-			this.DataGender.Name = "DataGender";
-			this.DataGender.ReadOnly = true;
-			this.DataGender.Width = 150;
+			this.dataAgeDataGridViewTextBoxColumn.DataPropertyName = "DataAge";
+			this.dataAgeDataGridViewTextBoxColumn.HeaderText = "年齢";
+			this.dataAgeDataGridViewTextBoxColumn.Name = "dataAgeDataGridViewTextBoxColumn";
+			this.dataAgeDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dataAgeDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// DataAffiliation
+			// dataGenderDataGridViewTextBoxColumn
 			// 
-			this.DataAffiliation.HeaderText = "所属";
-			this.DataAffiliation.Name = "DataAffiliation";
-			this.DataAffiliation.ReadOnly = true;
-			this.DataAffiliation.Width = 150;
+			this.dataGenderDataGridViewTextBoxColumn.DataPropertyName = "DataGender";
+			this.dataGenderDataGridViewTextBoxColumn.HeaderText = "性別";
+			this.dataGenderDataGridViewTextBoxColumn.Name = "dataGenderDataGridViewTextBoxColumn";
+			this.dataGenderDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dataGenderDataGridViewTextBoxColumn.Width = 150;
+			// 
+			// dataAffiliationDataGridViewTextBoxColumn
+			// 
+			this.dataAffiliationDataGridViewTextBoxColumn.DataPropertyName = "DataAffiliation";
+			this.dataAffiliationDataGridViewTextBoxColumn.HeaderText = "所属";
+			this.dataAffiliationDataGridViewTextBoxColumn.Name = "dataAffiliationDataGridViewTextBoxColumn";
+			this.dataAffiliationDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dataAffiliationDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// UserMasterMaintenance_ListDisplay
 			// 
@@ -142,7 +175,11 @@
 			this.Name = "UserMasterMaintenance_ListDisplay";
 			this.Text = "UserMasterMaintenance";
 			this.Load += new System.EventHandler(this.UserMasterMaintenance_ListDisplay_Load);
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersDataClassBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -152,13 +189,17 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.BindingSource usersDataBindingSource;
+		private System.Windows.Forms.BindingSource usersDataBindingSource1;
+		private System.Windows.Forms.BindingSource usersDataBindingSource2;
+		private System.Windows.Forms.BindingSource usersDataClassBindingSource;
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn チェックボックス;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DataID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DataName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DataAge;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DataGender;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DataAffiliation;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn checkBoxDataGridViewCheckBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataIdDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataNameDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataAgeDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGenderDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataAffiliationDataGridViewTextBoxColumn;
 	}
 }
 

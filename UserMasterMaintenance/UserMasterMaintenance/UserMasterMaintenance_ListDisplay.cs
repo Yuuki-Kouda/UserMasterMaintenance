@@ -19,28 +19,44 @@ namespace UserMasterMaintenance
 			InitializeComponent();
 		}
 
-		enum Buttons
+		public enum ScreenTransutionTarget
 		{
-			AddButton,
-			UpdateButton,
-			DeleteButton,
+			NoneScreen,
+			AddScreen,
+			UpdateScreen,
+			DeleteScreen,
+			ErrorScreen,
 		}
 
-		//チェックボックス判定
-		private bool IsPutCheckMarkOnlyOnce { get; set; } = false;
-		//押下ボタン判定
-		private string IsDecisionPressButton { get; set; } = "";
+		/// <summary>
+		/// 押下ボタン判定
+		/// </summary>
+		public string IsDecisionPressButton { get; set; } = "";
 
+		/// <summary>
+		/// 遷移先画面パラメータ(Error)
+		/// </summary>
+		public ScreenTransutionTarget TargetErrorScreen { get; set; } = ScreenTransutionTarget.NoneScreen;
+
+		/// <summary>
+		/// PropertiesClassのインスタンス
+		/// </summary>
+		public PropertiesClass properties = new PropertiesClass();
+
+		private List<UsersDataClass> usersDataList = new List<UsersDataClass>();
+
+		/// <summary>
+		/// ロード
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
 		{
-			//初期表示
-			PropertiesClass properties = new PropertiesClass();
-
 			//一覧データ取得
-			GetListData(properties);
+			GetListData();
 
 			//一覧データ表示
-			ShowListData(properties);
+			ShowListData();
 		}
 
 		/// <summary>
@@ -51,7 +67,7 @@ namespace UserMasterMaintenance
 		private void button1_Click(object sender, EventArgs e)
 		{
 			//画面遷移
-			TransitionScreen(SetPushButton(Buttons.AddButton));
+			TransitionScreen(SetPushButton(ScreenTransutionTarget.AddScreen));
 		}
 
 		/// <summary>
@@ -62,10 +78,17 @@ namespace UserMasterMaintenance
 		private void button2_Click(object sender, EventArgs e)
 		{
 			//チェックボックス判定
-			//if (!IsPutCheckMarkOnlyOnce) return;
+			if (!IsPutChekckMarkOnlyOnce())
+			{
+				//画面遷移
+				TargetErrorScreen = ScreenTransutionTarget.ErrorScreen;
+				TransitionScreen(SetPushButton(ScreenTransutionTarget.ErrorScreen));
+				TargetErrorScreen = ScreenTransutionTarget.NoneScreen;
+				return;
+			}
 
 			//画面遷移
-			TransitionScreen(SetPushButton(Buttons.UpdateButton));
+			TransitionScreen(SetPushButton(ScreenTransutionTarget.UpdateScreen));
 
 		}
 
@@ -77,27 +100,35 @@ namespace UserMasterMaintenance
 		private void button3_Click(object sender, EventArgs e)
 		{
 			//チェックボックス判定
-			//if (!IsPutCheckMarkOnlyOnce) return;
+			if (!IsPutChekckMarkOnlyOnce())
+			{
+				//画面遷移
+				TargetErrorScreen = ScreenTransutionTarget.ErrorScreen;
+				TransitionScreen(SetPushButton(ScreenTransutionTarget.ErrorScreen));
+				TargetErrorScreen = ScreenTransutionTarget.NoneScreen;
+				return;
+			}
 
 			//画面遷移
-			TransitionScreen(SetPushButton(Buttons.DeleteButton));
+			TransitionScreen(SetPushButton(ScreenTransutionTarget.DeleteScreen));
+		
 		}
 
 		/// <summary>
 		/// 一覧データ取得処理
 		/// </summary>
-		private PropertiesClass GetListData(PropertiesClass properties)
+		public void GetListData()
 		{
 			var usersJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
 			var departmentsJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
 			string usersDataListJsonText = "";
 			string departmentsDataListJsonText = "";
 
-			using (StreamReader streamReader = new StreamReader(usersJsonFilePath))
+			using (StreamReader streamReader = new StreamReader(usersJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
 				usersDataListJsonText = streamReader.ReadToEnd();
 			}
-			using (StreamReader streamReader = new StreamReader(departmentsJsonFilePath))
+			using (StreamReader streamReader = new StreamReader(departmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
 				departmentsDataListJsonText = streamReader.ReadToEnd();
 			}
@@ -106,33 +137,70 @@ namespace UserMasterMaintenance
 			properties.UsersDataList = JsonConvert.DeserializeObject<List<PropertiesClass.UsersData>>(usersDataListJsonText);
 			properties.DepartmentsList = JsonConvert.DeserializeObject<List<PropertiesClass.DepartmentsData>>(departmentsDataListJsonText);
 
-			return properties;
+			return;
 		}
 
 		/// <summary>
 		/// 一覧データ表示処理
 		/// </summary>
-		private void ShowListData(PropertiesClass properties)
+		public void ShowListData()
 		{
-			foreach (var usersData in properties.UsersDataList)
+
+			foreach(var usersData in properties.UsersDataList)
 			{
-				dataGridView1.Rows.Add(false,
-										usersData.DataId,
-										usersData.DataName,
-										usersData.DataAge,
-										usersData.DataGender,
-										usersData.DataAffiliation);
+				UsersDataClass usersDataClass = new UsersDataClass();
+
+				usersDataClass.CheckBox = false;
+				usersDataClass.DataId = usersData.DataId;
+				usersDataClass.DataName = usersData.DataName;
+				usersDataClass.DataAge = int.Parse(usersData.DataAge);
+				usersDataClass.DataGender = usersData.DataGender;
+				usersDataClass.DataAffiliation = usersData.DataAffiliation;
+
+				usersDataList.Add(usersDataClass);
 			}
+
+			usersDataClassBindingSource.DataSource = usersDataList;
+
+			var gender = "";
+			
+			//foreach (var usersData in properties.UsersDataList)
+			//{
+			//	if (usersData.DataGender)
+			//	{
+			//		gender = "男性";
+			//	}
+			//	else
+			//	{
+			//		gender = "女性";
+			//	}
+
+			//	dataGridView1.Rows.Add(false,
+			//							usersData.DataId,
+			//							usersData.DataName,
+			//							usersData.DataAge,
+			//							gender,
+			//							usersData.DataAffiliation);
+			//}
+			return;
 		}
 
 		/// <summary>
 		/// 画面遷移処理
 		/// </summary>
-		private void TransitionScreen(PropertiesClass properties)
+		public void TransitionScreen(PropertiesClass properties)
 		{
-			UserMasterMaintenance_InputDisplay inputDisplay = new UserMasterMaintenance_InputDisplay(properties);
-			//listDisplay.Hide();
-			inputDisplay.ShowDialog();
+			properties.IsDecisionScreenTransition = PropertiesClass.Screens.ListDisplay;
+
+			if(TargetErrorScreen == ScreenTransutionTarget.ErrorScreen)
+			{
+				ErrorDisplay errorDisplay = new ErrorDisplay(properties);
+			}
+			else
+			{
+				UserMasterMaintenance_InputDisplay inputDisplay = new UserMasterMaintenance_InputDisplay(properties);
+				inputDisplay.Show();
+			}
 			return;
 		}
 
@@ -140,26 +208,44 @@ namespace UserMasterMaintenance
 		/// クリックボタン設定
 		/// </summary>
 		/// <param name="button"></param>
-		private PropertiesClass SetPushButton(Buttons button)
+		public PropertiesClass SetPushButton(ScreenTransutionTarget targetScreen)
 		{
-			PropertiesClass properties = new PropertiesClass();
-
-			switch (button)
+			switch (targetScreen)
 			{
-				case Buttons.AddButton:
+				case ScreenTransutionTarget.AddScreen:
 					properties.JudgeButtonPressed = PropertiesClass.Buttons.AddButton;
 					break;
 
-				case Buttons.UpdateButton:
+				case ScreenTransutionTarget.UpdateScreen:
 					properties.JudgeButtonPressed = PropertiesClass.Buttons.UpdateButton;
 					break;
 
-				case Buttons.DeleteButton:
+				case ScreenTransutionTarget.DeleteScreen:
 					properties.JudgeButtonPressed = PropertiesClass.Buttons.DeleteButton;
+					break;
+
+				case ScreenTransutionTarget.ErrorScreen:
 					break;
 			}
 			return properties;
 		}
 
+		/// <summary>
+		/// チェックボックス判定
+		/// </summary>
+		/// <returns></returns>
+		public bool IsPutChekckMarkOnlyOnce()
+		{
+			int CheckCount = 0;
+
+			for (int i = 0; dataGridView1.Rows.Count > i; i++)
+			{
+				if (dataGridView1[0, i].Value == null) continue;
+
+				if (dataGridView1[0, i].Value.ToString() == "true") CheckCount += 1;
+			}
+			if (CheckCount == 1) return true;
+			return false;
+		}
 	}
 }

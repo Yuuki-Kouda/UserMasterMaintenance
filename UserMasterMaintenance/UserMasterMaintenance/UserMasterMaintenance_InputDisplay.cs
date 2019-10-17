@@ -15,12 +15,12 @@ namespace UserMasterMaintenance
 
 	public partial class UserMasterMaintenance_InputDisplay : Form
 	{
-		public UserMasterMaintenance_InputDisplay(PropertiesClass properties)
+		public UserMasterMaintenance_InputDisplay(PropertiesClass propertiesSent)
 		{
 			InitializeComponent();
+
+			properties = propertiesSent;
 			
-			//初期画面設定
-			SetScreen(properties);
 		}
 
 		public enum Screens
@@ -36,6 +36,17 @@ namespace UserMasterMaintenance
 		public Screens ScreenParam { get; set; }
 
 		/// <summary>
+		/// PropertiesClassのインスタンス
+		/// </summary>
+		public PropertiesClass properties = new PropertiesClass();
+
+		private void UserMasterMaintenance_InputDisplay_Load(object sender, EventArgs e)
+		{
+			//初期画面設定
+			SetScreen();
+		}
+
+		/// <summary>
 		/// OKボタンクリック
 		/// </summary>
 		/// <param name="sender"></param>
@@ -43,9 +54,9 @@ namespace UserMasterMaintenance
 		private void button1_Click(object sender, EventArgs e)
 		{
 			//未入力チェック、同IDチェック
-			if(!ConfirmEntry())
+			if(!ConfirmEntry() || !ConfirmId())
 			{
-				ErrorDisplay errorDisplay = new ErrorDisplay();
+				ErrorDisplay errorDisplay = new ErrorDisplay(properties);
 				return;
 			}
 
@@ -57,10 +68,13 @@ namespace UserMasterMaintenance
 			}
 
 			//データ追加処理
-			AddDataToJson();
+			AddDataToList();
+
+			UserMasterMaintenance_ListDisplay userMasterMaintenance_ListDisplay = new UserMasterMaintenance_ListDisplay();
+			userMasterMaintenance_ListDisplay.Show();
 			return;
 		}
-
+		
 		/// <summary>
 		/// キャンセルボタンクリック
 		/// </summary>
@@ -74,19 +88,28 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 出力画面設定
 		/// </summary>
-		public void SetScreen(PropertiesClass properties)
+		public void SetScreen()
 		{
+			//コンボボックスの設定
+			foreach(var departMentsDataList in properties.DepartmentsList)
+			{
+				comboBox1.Items.Add(departMentsDataList);
+			}
+
 			switch (properties.JudgeButtonPressed)
 			{
 				case PropertiesClass.Buttons.AddButton:
 					//追加画面作成
 					ScreenParam = Screens.AddScreen;
+					properties.IsDecisionScreenTransition = PropertiesClass.Screens.AddDisplay;
 
 					break;
 
 				case PropertiesClass.Buttons.UpdateButton:
 					//更新画面作成
 					ScreenParam = Screens.UpdateScreen;
+					properties.IsDecisionScreenTransition = PropertiesClass.Screens.UpdateDisplay;
+
 					textBox6.Text = properties.PropertyId;
 					textBox7.Text = properties.PropertyName;
 					textBox8.Text = properties.PropertyAge;
@@ -107,6 +130,8 @@ namespace UserMasterMaintenance
 				case PropertiesClass.Buttons.DeleteButton:
 					//削除画面設定
 					ScreenParam = Screens.DeleteScreen;
+					properties.IsDecisionScreenTransition = PropertiesClass.Screens.DeleteDisplay;
+
 					textBox6.Text = properties.PropertyId;
 					textBox7.Text = properties.PropertyName;
 					textBox8.Text = properties.PropertyAge;
@@ -175,16 +200,16 @@ namespace UserMasterMaintenance
 		/// 同IDチェック
 		/// </summary>
 		/// <returns></returns>
-		public bool ConfirmId(PropertiesClass properties)
+		public bool ConfirmId()
 		{
-			var comfirmationSameId = false;
+			var comfirmationSameId = true;
 
 			//IDがあったら
 			foreach(var usersData in properties.UsersDataList)
 			{
 				if (textBox6.Text == usersData.DataId)
 				{
-					comfirmationSameId = true;
+					comfirmationSameId = false;
 					break;
 				}			
 			}
@@ -192,58 +217,56 @@ namespace UserMasterMaintenance
 		}
 
 		/// <summary>
-		/// jsonファイルへ書き込み
+		/// データの追加
 		/// </summary>
-		public void AddDataToJson()
+		public void AddDataToList()
 		{
-			//インスタンス生成
-			PropertiesClass.UsersData usersObject = new PropertiesClass.UsersData();
-			PropertiesClass.DepartmentsData departmentsObject = new PropertiesClass.DepartmentsData();
+			PropertiesClass.UsersData usersData = new PropertiesClass.UsersData();
 
-			//値の取得
-			usersObject.DataId = textBox6.Text;
-			usersObject.DataName = textBox7.Text;
-			usersObject.DataAge = textBox8.Text;
-			if (radioButton1.Checked)
-			{
-				usersObject.DataGender = true;
-			}
-			else
-			{
-				usersObject.DataGender = false;
-			}
+			usersData.DataId = textBox6.Text;
+			usersData.DataName = textBox7.Text;
+			usersData.DataAge = textBox8.Text;
+			if (radioButton1.Checked) usersData.DataGender = "男性";
+			else usersData.DataGender = "女性";
+			usersData.DataAffiliation = comboBox1.SelectedItem.ToString();
 
-			departmentsObject.DataAffiliation = comboBox1.Text;
+			properties.UsersDataList.Add(usersData);
 
-			//シリアライズ化
-			var serializedUsersObject = JsonConvert.SerializeObject(usersObject, Formatting.Indented);
-			var serializedDepartmentsObject = JsonConvert.SerializeObject(departmentsObject, Formatting.Indented);
+			////インスタンス生成
+			//PropertiesClass.UsersData usersObject = new PropertiesClass.UsersData();
+			//PropertiesClass.DepartmentsData departmentsObject = new PropertiesClass.DepartmentsData();
 
-			//ファイルへ書き込み
-			using (StreamWriter streamWriter = 
-				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json", true))
-			{
-				streamWriter.Write(serializedUsersObject);
-			}
-			using (StreamWriter streamWriter =
-				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json", true))
-			{
-				streamWriter.Write(serializedDepartmentsObject);
-			}
+			////値の取得
+			//usersObject.DataId = textBox6.Text;
+			//usersObject.DataName = textBox7.Text;
+			//usersObject.DataAge = textBox8.Text;
+			//if (radioButton1.Checked)
+			//{
+			//	usersObject.DataGender = true;
+			//}
+			//else
+			//{
+			//	usersObject.DataGender = false;
+			//}
+
+			//departmentsObject.DataAffiliation = comboBox1.Text;
+
+			////シリアライズ化
+			//var serializedUsersObject = JsonConvert.SerializeObject(usersObject, Formatting.Indented);
+			//var serializedDepartmentsObject = JsonConvert.SerializeObject(departmentsObject, Formatting.Indented);
+
+			////ファイルへ書き込み
+			//using (StreamWriter streamWriter = 
+			//	new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json", true))
+			//{
+			//	streamWriter.Write(serializedUsersObject);
+			//}
+			//using (StreamWriter streamWriter =
+			//	new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json", true))
+			//{
+			//	streamWriter.Write(serializedDepartmentsObject);
+			//}
 			return;
 		}
-
-		//public void GetDepartmentsList()
-		//{
-		//	var departmentsList = new List<PropertiesClass.DepartmentsData>();
-
-		//	try
-		//	{
-		//		using (StreamReader streamReader = new StreamReader(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json"))
-		//		{
-		//			var jsonDepartmentsData = streamReader.ReadToEnd();
-		//		}
-		//	}
-		
 	}
 }
