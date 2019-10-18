@@ -116,6 +116,7 @@
 			// 
 			// textBox6
 			// 
+			this.textBox6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.textBox6.Location = new System.Drawing.Point(48, 49);
 			this.textBox6.Name = "textBox6";
 			this.textBox6.Size = new System.Drawing.Size(56, 19);

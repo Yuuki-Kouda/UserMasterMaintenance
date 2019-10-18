@@ -36,13 +36,13 @@
 			this.usersDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
 			this.usersDataBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.usersDataClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.checkBoxDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.dataIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataAgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGenderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataAffiliationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.usersDataClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).BeginInit();
@@ -110,10 +110,6 @@
 			this.dataGridView1.Size = new System.Drawing.Size(824, 373);
 			this.dataGridView1.TabIndex = 4;
 			// 
-			// usersDataClassBindingSource
-			// 
-			this.usersDataClassBindingSource.DataSource = typeof(UserMasterMaintenance.UsersDataClass);
-			// 
 			// checkBoxDataGridViewCheckBoxColumn
 			// 
 			this.checkBoxDataGridViewCheckBoxColumn.DataPropertyName = "CheckBox";
@@ -163,6 +159,10 @@
 			this.dataAffiliationDataGridViewTextBoxColumn.ReadOnly = true;
 			this.dataAffiliationDataGridViewTextBoxColumn.Width = 150;
 			// 
+			// usersDataClassBindingSource
+			// 
+			this.usersDataClassBindingSource.DataSource = typeof(UserMasterMaintenance.UsersDataClass);
+			// 
 			// UserMasterMaintenance_ListDisplay
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -174,7 +174,7 @@
 			this.Controls.Add(this.button1);
 			this.Name = "UserMasterMaintenance_ListDisplay";
 			this.Text = "UserMasterMaintenance";
-			this.Load += new System.EventHandler(this.UserMasterMaintenance_ListDisplay_Load);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserMasterMaintenance_ListDisplay_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).EndInit();

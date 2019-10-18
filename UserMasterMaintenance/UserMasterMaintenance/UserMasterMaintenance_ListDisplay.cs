@@ -17,6 +17,13 @@ namespace UserMasterMaintenance
 		public UserMasterMaintenance_ListDisplay()
 		{
 			InitializeComponent();
+
+			//一覧データ取得
+			GetListData();
+
+			//一覧データ表示
+			ShowListData();
+
 		}
 
 		public enum ScreenTransutionTarget
@@ -52,11 +59,6 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
 		{
-			//一覧データ取得
-			GetListData();
-
-			//一覧データ表示
-			ShowListData();
 		}
 
 		/// <summary>
@@ -246,6 +248,27 @@ namespace UserMasterMaintenance
 			}
 			if (CheckCount == 1) return true;
 			return false;
+		}
+
+		private void UserMasterMaintenance_ListDisplay_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			//properties.UsersDataList.Remove(null);
+
+			//シリアライズ化
+			var serializedUsersObject = JsonConvert.SerializeObject(properties.UsersDataList, Formatting.Indented);
+			var serializedDepartmentsObject = JsonConvert.SerializeObject(properties.DepartmentsList, Formatting.Indented);
+
+			//ファイルへ書き込み
+			using (StreamWriter streamWriter =
+				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json", false, Encoding.UTF8))
+			{
+				streamWriter.Write(serializedUsersObject);
+			}
+			using (StreamWriter streamWriter =
+				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json", false, Encoding.UTF8))
+			{
+				streamWriter.Write(serializedDepartmentsObject);
+			}
 		}
 	}
 }

@@ -1,16 +1,16 @@
-[
-	{
-		"DataId": "dddd",
-		"DataName": "dddd",
-		"DataAge": "33",
-		"DataGender": "’j«",
-		"DataAffiliation": "ƒGƒ{ƒ‹ƒeƒbƒN"
-	},
-	{
-		"DataId": "dddds",
-		"DataName": "dddds",
-		"DataAge": "23",
-		"DataGender": "’j«",
-		"DataAffiliation": "ƒGƒ{ƒ‹ƒeƒbƒN"
-	}
+ï»¿[
+  {
+    "DataId": "dddd",
+    "DataName": "dddd",
+    "DataAge": "33",
+    "DataGender": "ç”·æ€§",
+    "DataAffiliation": "ã‚¨ãƒœãƒ«ãƒ†ãƒƒã‚¯"
+  },
+  {
+    "DataId": "dddds",
+    "DataName": "dddds",
+    "DataAge": "23",
+    "DataGender": "ç”·æ€§",
+    "DataAffiliation": "ã‚¨ãƒœãƒ«ãƒ†ãƒƒã‚¯"
+  }
 ]
