@@ -1,16 +1,16 @@
 ﻿[
   {
-    "DataId": "dddd",
-    "DataName": "dddd",
-    "DataAge": "33",
-    "DataGender": "男性",
-    "DataAffiliation": "エボルテック"
+    "UserId": "dddd",
+    "UserName": "dddd",
+    "UserAge": "33",
+    "UserGender": "男性",
+    "UserAffiliation": "エボルテック"
   },
   {
-    "DataId": "dddds",
-    "DataName": "dddds",
-    "DataAge": "23",
-    "DataGender": "男性",
-    "DataAffiliation": "エボルテック"
+    "UserId": "dddds",
+    "UserName": "dddds",
+    "UserAge": "23",
+    "UserGender": "男性",
+    "UserAffiliation": "エボルテック"
   }
 ]

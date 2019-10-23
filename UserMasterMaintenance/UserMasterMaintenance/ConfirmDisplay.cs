@@ -12,12 +12,12 @@ namespace UserMasterMaintenance
 {
 	public partial class ConfirmDisplay : Form
 	{
-		public ConfirmDisplay(PropertiesClass properties)
+		public ConfirmDisplay()
 		{
 			InitializeComponent();
 
 			//初期画面設定
-			DialogResult dialogResult = SetScreen(properties);
+			DialogResult dialogResult = SetScreen();
 
 			//Yes,No判定
 			if (dialogResult == DialogResult.No) return;
@@ -41,35 +41,10 @@ namespace UserMasterMaintenance
 		/// 初期画面設定
 		/// </summary>
 		/// <param name="properties"></param>
-		public DialogResult SetScreen(PropertiesClass properties)
+		public DialogResult SetScreen()
 		{
 			DialogResult dialogResult = new DialogResult();
 
-			switch (properties.JudgeButtonPressed)
-			{
-
-				case PropertiesClass.Buttons.UpdateButton:
-					//更新画面作成
-					ScreenParam = Screens.UpdateScreen;
-					dialogResult = 
-						MessageBox.Show("更新してもよろしいですか？", 
-						"確認", 
-						MessageBoxButtons.YesNo, 
-						MessageBoxIcon.Question) ;
-
-					break;
-
-				case PropertiesClass.Buttons.DeleteButton:
-					//削除画面設定
-					ScreenParam = Screens.DeleteScreen;
-					dialogResult = 
-						MessageBox.Show("削除してもよろしいですか？", 
-						"確認", 
-						MessageBoxButtons.YesNo, 
-						MessageBoxIcon.Question);
-
-					break;
-			}
 			return dialogResult;
 		}
 

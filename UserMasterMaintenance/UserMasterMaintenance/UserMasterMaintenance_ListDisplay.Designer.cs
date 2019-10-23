@@ -35,19 +35,21 @@
 			this.usersDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.usersDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
 			this.usersDataBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.checkBoxDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.dataIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataAgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGenderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataAffiliationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.usersDataClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.userIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userAgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userGenderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userAffiliationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataClassBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -80,88 +82,74 @@
 			this.button3.UseVisualStyleBackColor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
-			// usersDataBindingSource
-			// 
-			this.usersDataBindingSource.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
-			// 
-			// usersDataBindingSource1
-			// 
-			this.usersDataBindingSource1.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
-			// 
-			// usersDataBindingSource2
-			// 
-			this.usersDataBindingSource2.DataSource = typeof(UserMasterMaintenance.PropertiesClass.UsersData);
-			// 
 			// dataGridView1
 			// 
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.checkBoxDataGridViewCheckBoxColumn,
-            this.dataIdDataGridViewTextBoxColumn,
-            this.dataNameDataGridViewTextBoxColumn,
-            this.dataAgeDataGridViewTextBoxColumn,
-            this.dataGenderDataGridViewTextBoxColumn,
-            this.dataAffiliationDataGridViewTextBoxColumn});
-			this.dataGridView1.DataSource = this.usersDataClassBindingSource;
+            this.CheckBox,
+            this.userIdDataGridViewTextBoxColumn,
+            this.userNameDataGridViewTextBoxColumn,
+            this.userAgeDataGridViewTextBoxColumn,
+            this.userGenderDataGridViewTextBoxColumn,
+            this.userAffiliationDataGridViewTextBoxColumn});
+			this.dataGridView1.DataSource = this.usersBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(12, 65);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 21;
 			this.dataGridView1.Size = new System.Drawing.Size(824, 373);
-			this.dataGridView1.TabIndex = 4;
+			this.dataGridView1.TabIndex = 3;
 			// 
-			// checkBoxDataGridViewCheckBoxColumn
+			// usersBindingSource
 			// 
-			this.checkBoxDataGridViewCheckBoxColumn.DataPropertyName = "CheckBox";
-			this.checkBoxDataGridViewCheckBoxColumn.FalseValue = "false";
-			this.checkBoxDataGridViewCheckBoxColumn.HeaderText = "";
-			this.checkBoxDataGridViewCheckBoxColumn.Name = "checkBoxDataGridViewCheckBoxColumn";
-			this.checkBoxDataGridViewCheckBoxColumn.TrueValue = "true";
-			this.checkBoxDataGridViewCheckBoxColumn.Width = 30;
+			this.usersBindingSource.DataSource = typeof(UserMasterMaintenance.UserMasterMaintenance_ListDisplay.Users);
 			// 
-			// dataIdDataGridViewTextBoxColumn
+			// CheckBox
 			// 
-			this.dataIdDataGridViewTextBoxColumn.DataPropertyName = "DataId";
-			this.dataIdDataGridViewTextBoxColumn.HeaderText = "ID";
-			this.dataIdDataGridViewTextBoxColumn.Name = "dataIdDataGridViewTextBoxColumn";
-			this.dataIdDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dataIdDataGridViewTextBoxColumn.Width = 150;
+			this.CheckBox.DataPropertyName = "CheckBox";
+			this.CheckBox.HeaderText = "";
+			this.CheckBox.Name = "CheckBox";
+			this.CheckBox.Width = 30;
 			// 
-			// dataNameDataGridViewTextBoxColumn
+			// userIdDataGridViewTextBoxColumn
 			// 
-			this.dataNameDataGridViewTextBoxColumn.DataPropertyName = "DataName";
-			this.dataNameDataGridViewTextBoxColumn.HeaderText = "名前";
-			this.dataNameDataGridViewTextBoxColumn.Name = "dataNameDataGridViewTextBoxColumn";
-			this.dataNameDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dataNameDataGridViewTextBoxColumn.Width = 150;
+			this.userIdDataGridViewTextBoxColumn.DataPropertyName = "UserId";
+			this.userIdDataGridViewTextBoxColumn.HeaderText = "ID";
+			this.userIdDataGridViewTextBoxColumn.Name = "userIdDataGridViewTextBoxColumn";
+			this.userIdDataGridViewTextBoxColumn.ReadOnly = true;
+			this.userIdDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// dataAgeDataGridViewTextBoxColumn
+			// userNameDataGridViewTextBoxColumn
 			// 
-			this.dataAgeDataGridViewTextBoxColumn.DataPropertyName = "DataAge";
-			this.dataAgeDataGridViewTextBoxColumn.HeaderText = "年齢";
-			this.dataAgeDataGridViewTextBoxColumn.Name = "dataAgeDataGridViewTextBoxColumn";
-			this.dataAgeDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dataAgeDataGridViewTextBoxColumn.Width = 150;
+			this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
+			this.userNameDataGridViewTextBoxColumn.HeaderText = "名前";
+			this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
+			this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.userNameDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// dataGenderDataGridViewTextBoxColumn
+			// userAgeDataGridViewTextBoxColumn
 			// 
-			this.dataGenderDataGridViewTextBoxColumn.DataPropertyName = "DataGender";
-			this.dataGenderDataGridViewTextBoxColumn.HeaderText = "性別";
-			this.dataGenderDataGridViewTextBoxColumn.Name = "dataGenderDataGridViewTextBoxColumn";
-			this.dataGenderDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dataGenderDataGridViewTextBoxColumn.Width = 150;
+			this.userAgeDataGridViewTextBoxColumn.DataPropertyName = "UserAge";
+			this.userAgeDataGridViewTextBoxColumn.HeaderText = "年齢";
+			this.userAgeDataGridViewTextBoxColumn.Name = "userAgeDataGridViewTextBoxColumn";
+			this.userAgeDataGridViewTextBoxColumn.ReadOnly = true;
+			this.userAgeDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// dataAffiliationDataGridViewTextBoxColumn
+			// userGenderDataGridViewTextBoxColumn
 			// 
-			this.dataAffiliationDataGridViewTextBoxColumn.DataPropertyName = "DataAffiliation";
-			this.dataAffiliationDataGridViewTextBoxColumn.HeaderText = "所属";
-			this.dataAffiliationDataGridViewTextBoxColumn.Name = "dataAffiliationDataGridViewTextBoxColumn";
-			this.dataAffiliationDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dataAffiliationDataGridViewTextBoxColumn.Width = 150;
+			this.userGenderDataGridViewTextBoxColumn.DataPropertyName = "UserGender";
+			this.userGenderDataGridViewTextBoxColumn.HeaderText = "性別";
+			this.userGenderDataGridViewTextBoxColumn.Name = "userGenderDataGridViewTextBoxColumn";
+			this.userGenderDataGridViewTextBoxColumn.ReadOnly = true;
+			this.userGenderDataGridViewTextBoxColumn.Width = 150;
 			// 
-			// usersDataClassBindingSource
+			// userAffiliationDataGridViewTextBoxColumn
 			// 
-			this.usersDataClassBindingSource.DataSource = typeof(UserMasterMaintenance.UsersDataClass);
+			this.userAffiliationDataGridViewTextBoxColumn.DataPropertyName = "UserAffiliation";
+			this.userAffiliationDataGridViewTextBoxColumn.HeaderText = "所属";
+			this.userAffiliationDataGridViewTextBoxColumn.Name = "userAffiliationDataGridViewTextBoxColumn";
+			this.userAffiliationDataGridViewTextBoxColumn.ReadOnly = true;
+			this.userAffiliationDataGridViewTextBoxColumn.Width = 150;
 			// 
 			// UserMasterMaintenance_ListDisplay
 			// 
@@ -174,12 +162,13 @@
 			this.Controls.Add(this.button1);
 			this.Name = "UserMasterMaintenance_ListDisplay";
 			this.Text = "UserMasterMaintenance";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserMasterMaintenance_ListDisplay_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFromClosed);
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataClassBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -193,13 +182,20 @@
 		private System.Windows.Forms.BindingSource usersDataBindingSource1;
 		private System.Windows.Forms.BindingSource usersDataBindingSource2;
 		private System.Windows.Forms.BindingSource usersDataClassBindingSource;
-		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn checkBoxDataGridViewCheckBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataIdDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataNameDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataAgeDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGenderDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataAffiliationDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.BindingSource usersBindingSource;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
+		private System.Windows.Forms.DataGridViewTextBoxColumn userIdDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn userNameDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn userAgeDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn userGenderDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn userAffiliationDataGridViewTextBoxColumn;
 	}
 }
 

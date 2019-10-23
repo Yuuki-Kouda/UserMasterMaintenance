@@ -19,47 +19,100 @@ namespace UserMasterMaintenance
 			InitializeComponent();
 
 			//一覧データ取得
-			GetListData();
+			JsonFileTypeParam = JsonFileType.UserJsonType;
+			Deselialize(RoadFile());
 
-			//一覧データ表示
-			ShowListData();
+			JsonFileTypeParam = JsonFileType.DepartmentsJsonType;
+			Deselialize(RoadFile());
 
+			//一覧データ画面設定
+			usersBindingSource.DataSource = UsersList;
 		}
 
-		public enum ScreenTransutionTarget
+		public enum ErrorType
 		{
-			NoneScreen,
-			AddScreen,
-			UpdateScreen,
-			DeleteScreen,
-			ErrorScreen,
+			NotCheckCheckBox
 		}
 
-		/// <summary>
-		/// 押下ボタン判定
-		/// </summary>
-		public string IsDecisionPressButton { get; set; } = "";
-
-		/// <summary>
-		/// 遷移先画面パラメータ(Error)
-		/// </summary>
-		public ScreenTransutionTarget TargetErrorScreen { get; set; } = ScreenTransutionTarget.NoneScreen;
-
-		/// <summary>
-		/// PropertiesClassのインスタンス
-		/// </summary>
-		public PropertiesClass properties = new PropertiesClass();
-
-		private List<UsersDataClass> usersDataList = new List<UsersDataClass>();
-
-		/// <summary>
-		/// ロード
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
+		public enum ClickButtonType
 		{
+			AddButton,
+			UpdateButton,
+			DeleteButton,
 		}
+
+		public enum JsonFileType
+		{
+			UserJsonType,
+			DepartmentsJsonType
+		}
+
+		/// <summary>
+		/// Usersクラス（users.json）
+		/// </summary>
+		public class Users
+		{
+			/// <summary>
+			/// ID
+			/// </summary>
+			public string UserId { get; set; }
+
+			/// <summary>
+			/// 名前
+			/// </summary>
+			public string UserName { get; set; }
+
+			/// <summary>
+			/// 年齢
+			/// </summary>
+			public string UserAge { get; set; }
+
+			/// <summary>
+			/// 性別
+			/// </summary>
+			public string UserGender { get; set; }
+
+			/// <summary>
+			/// 所属
+			/// </summary>
+			public string UserAffiliation { get; set; }
+		}
+
+		/// <summary>
+		/// Departmentsクラス（departments.json）
+		/// </summary>
+		public class Departments
+		{
+			/// <summary>
+			/// 所属
+			/// </summary>
+			public string Department { get; set; }
+		}
+
+		/// <summary>
+		/// Usersリスト（一覧）
+		/// </summary>
+		public List<Users> UsersList { get; set; }
+
+		/// <summary>
+		/// 所属リスト（コンボボックス一覧）
+		/// </summary>
+		public List<Departments> DepartmentsList { get; set; }
+
+		/// <summary>
+		/// エラーパラメータ
+		/// </summary>
+		public ErrorType ErrorTypeParam { get; set; }
+
+		/// <summary>
+		/// クリックボタンタイプパラメータ
+		/// </summary>
+		public ClickButtonType ClickedButtonTypeParam { get; set; }
+
+		/// <summary>
+		/// jsonファイルタイプパラメータ
+		/// </summary>
+		public JsonFileType JsonFileTypeParam { get; set; }
 
 		/// <summary>
 		/// 追加ボタンクリック
@@ -68,8 +121,17 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-			//画面遷移
-			TransitionScreen(SetPushButton(ScreenTransutionTarget.AddScreen));
+			ClickedButtonTypeParam = ClickButtonType.AddButton;
+
+			var selectUsers = new Users();
+
+			//一覧からすべてのユーザー情報を取得
+			UsersList = usersBindingSource.DataSource as List<Users>;
+
+			ShowEditScreen(selectUsers);
+
+			//一覧データ画面設定
+			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
@@ -79,19 +141,25 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button2_Click(object sender, EventArgs e)
 		{
+			ClickedButtonTypeParam = ClickButtonType.UpdateButton;
+
 			//チェックボックス判定
-			if (!IsPutChekckMarkOnlyOnce())
+			if (!DetermineChecBox())
 			{
-				//画面遷移
-				TargetErrorScreen = ScreenTransutionTarget.ErrorScreen;
-				TransitionScreen(SetPushButton(ScreenTransutionTarget.ErrorScreen));
-				TargetErrorScreen = ScreenTransutionTarget.NoneScreen;
+				ShowErrorDialog();
 				return;
 			}
 
-			//画面遷移
-			TransitionScreen(SetPushButton(ScreenTransutionTarget.UpdateScreen));
+			//一覧から選択ユーザー情報を取得
+			var selectUsers = AcquireSelectUserDataFromDisplay();
 
+			//一覧からすべてのユーザー情報を取得
+			UsersList = usersBindingSource.DataSource as List<Users>;
+
+			ShowEditScreen(selectUsers);
+
+			//一覧データ画面設定
+			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
@@ -101,142 +169,118 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button3_Click(object sender, EventArgs e)
 		{
+			ClickedButtonTypeParam = ClickButtonType.DeleteButton;
+
 			//チェックボックス判定
-			if (!IsPutChekckMarkOnlyOnce())
+			if (!DetermineChecBox())
 			{
-				//画面遷移
-				TargetErrorScreen = ScreenTransutionTarget.ErrorScreen;
-				TransitionScreen(SetPushButton(ScreenTransutionTarget.ErrorScreen));
-				TargetErrorScreen = ScreenTransutionTarget.NoneScreen;
+				ShowErrorDialog();
 				return;
 			}
 
-			//画面遷移
-			TransitionScreen(SetPushButton(ScreenTransutionTarget.DeleteScreen));
-		
+			//一覧から選択ユーザー情報を取得
+			var selectUsers = AcquireSelectUserDataFromDisplay();
+
+			//一覧からすべてのユーザー情報を取得
+			UsersList = usersBindingSource.DataSource as List<Users>;
+
+			ShowEditScreen(selectUsers);
+
+			//一覧データ画面設定
+			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
-		/// 一覧データ取得処理
+		/// 閉じるボタンクリック
 		/// </summary>
-		public void GetListData()
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnFromClosed(object sender, FormClosedEventArgs e)
 		{
-			var usersJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
-			var departmentsJsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
-			string usersDataListJsonText = "";
-			string departmentsDataListJsonText = "";
+			//jsonファイルに保存
+			JsonFileTypeParam = JsonFileType.UserJsonType;
+			SaveFile(Selialize());
 
-			using (StreamReader streamReader = new StreamReader(usersJsonFilePath, Encoding.GetEncoding("shift_jis")))
-			{
-				usersDataListJsonText = streamReader.ReadToEnd();
-			}
-			using (StreamReader streamReader = new StreamReader(departmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
-			{
-				departmentsDataListJsonText = streamReader.ReadToEnd();
-			}
-
-			//デシリアライズ
-			properties.UsersDataList = JsonConvert.DeserializeObject<List<PropertiesClass.UsersData>>(usersDataListJsonText);
-			properties.DepartmentsList = JsonConvert.DeserializeObject<List<PropertiesClass.DepartmentsData>>(departmentsDataListJsonText);
-
-			return;
+			JsonFileTypeParam = JsonFileType.DepartmentsJsonType;
+			SaveFile(Selialize());
 		}
 
 		/// <summary>
-		/// 一覧データ表示処理
-		/// </summary>
-		public void ShowListData()
-		{
-
-			foreach(var usersData in properties.UsersDataList)
-			{
-				UsersDataClass usersDataClass = new UsersDataClass();
-
-				usersDataClass.CheckBox = false;
-				usersDataClass.DataId = usersData.DataId;
-				usersDataClass.DataName = usersData.DataName;
-				usersDataClass.DataAge = int.Parse(usersData.DataAge);
-				usersDataClass.DataGender = usersData.DataGender;
-				usersDataClass.DataAffiliation = usersData.DataAffiliation;
-
-				usersDataList.Add(usersDataClass);
-			}
-
-			usersDataClassBindingSource.DataSource = usersDataList;
-
-			var gender = "";
-			
-			//foreach (var usersData in properties.UsersDataList)
-			//{
-			//	if (usersData.DataGender)
-			//	{
-			//		gender = "男性";
-			//	}
-			//	else
-			//	{
-			//		gender = "女性";
-			//	}
-
-			//	dataGridView1.Rows.Add(false,
-			//							usersData.DataId,
-			//							usersData.DataName,
-			//							usersData.DataAge,
-			//							gender,
-			//							usersData.DataAffiliation);
-			//}
-			return;
-		}
-
-		/// <summary>
-		/// 画面遷移処理
-		/// </summary>
-		public void TransitionScreen(PropertiesClass properties)
-		{
-			properties.IsDecisionScreenTransition = PropertiesClass.Screens.ListDisplay;
-
-			if(TargetErrorScreen == ScreenTransutionTarget.ErrorScreen)
-			{
-				ErrorDisplay errorDisplay = new ErrorDisplay(properties);
-			}
-			else
-			{
-				UserMasterMaintenance_InputDisplay inputDisplay = new UserMasterMaintenance_InputDisplay(properties);
-				inputDisplay.Show();
-			}
-			return;
-		}
-
-		/// <summary>
-		/// クリックボタン設定
-		/// </summary>
-		/// <param name="button"></param>
-		public PropertiesClass SetPushButton(ScreenTransutionTarget targetScreen)
-		{
-			switch (targetScreen)
-			{
-				case ScreenTransutionTarget.AddScreen:
-					properties.JudgeButtonPressed = PropertiesClass.Buttons.AddButton;
-					break;
-
-				case ScreenTransutionTarget.UpdateScreen:
-					properties.JudgeButtonPressed = PropertiesClass.Buttons.UpdateButton;
-					break;
-
-				case ScreenTransutionTarget.DeleteScreen:
-					properties.JudgeButtonPressed = PropertiesClass.Buttons.DeleteButton;
-					break;
-
-				case ScreenTransutionTarget.ErrorScreen:
-					break;
-			}
-			return properties;
-		}
-
-		/// <summary>
-		/// チェックボックス判定
+		/// jsonファイルの読み込み
 		/// </summary>
 		/// <returns></returns>
-		public bool IsPutChekckMarkOnlyOnce()
+		public string RoadFile()
+		{
+			var JsonFilePath = "";
+			var DataListJsonText = "";
+
+			switch (JsonFileTypeParam)
+			{
+				case JsonFileType.UserJsonType:
+					JsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
+					break;
+
+				case JsonFileType.DepartmentsJsonType:
+					JsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+					break;
+
+				default:
+					break;
+			}
+
+			using (StreamReader streamReader = new StreamReader(JsonFilePath, Encoding.GetEncoding("shift_jis")))
+			{
+				//デシリアライズ前テキスト
+				DataListJsonText = streamReader.ReadToEnd();
+			}
+			return DataListJsonText;
+		}
+
+		/// <summary>
+		/// デシリアライズ処理
+		/// </summary>
+		/// <param name="jsonText"></param>
+		public void Deselialize(string jsonText)
+		{
+			switch (JsonFileTypeParam)
+			{
+				case JsonFileType.UserJsonType:
+
+					//デシリアライズ
+					UsersList = JsonConvert.DeserializeObject<List<Users>>(jsonText);
+					break;
+
+				case JsonFileType.DepartmentsJsonType:
+
+					//デシリアライズ
+					DepartmentsList = JsonConvert.DeserializeObject<List<Departments>>(jsonText);
+					break;
+
+				default:
+					break;
+			}
+			return;
+		}
+
+		/// <summary>
+		/// 編集画面表示処理
+		/// </summary>
+		public void ShowEditScreen(Users selectUsers)
+		{
+			UsersMasterMaintenance_InputDisplay inputDisplay
+				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, ClickedButtonTypeParam);
+			
+			UsersList = inputDisplay.ShowDialog();
+			inputDisplay.Dispose();
+
+			return;
+		}
+
+		/// <summary>
+		/// チェックボックス判定（チェックボックスを一つのみチェックの場合のみtrue）
+		/// </summary>
+		/// <returns></returns>
+		public bool DetermineChecBox()
 		{
 			int CheckCount = 0;
 
@@ -246,29 +290,105 @@ namespace UserMasterMaintenance
 
 				if (dataGridView1[0, i].Value.ToString() == "true") CheckCount += 1;
 			}
+
 			if (CheckCount == 1) return true;
 			return false;
 		}
 
-		private void UserMasterMaintenance_ListDisplay_FormClosing(object sender, FormClosingEventArgs e)
+		/// <summary>
+		/// 選択されたユーザーデータを一覧から取得する
+		/// </summary>
+		public Users AcquireSelectUserDataFromDisplay()
 		{
-			//properties.UsersDataList.Remove(null);
+			Users selectionUser = new Users();
+			int row = 0;
 
-			//シリアライズ化
-			var serializedUsersObject = JsonConvert.SerializeObject(properties.UsersDataList, Formatting.Indented);
-			var serializedDepartmentsObject = JsonConvert.SerializeObject(properties.DepartmentsList, Formatting.Indented);
+			for (row = 0; dataGridView1.Rows.Count > row; row++)
+			{
+				if (dataGridView1[0, row].Value == null) continue;
+
+				if (dataGridView1[0, row].Value.ToString() == "true") break;
+			}
+
+			selectionUser.UserId = dataGridView1[1, row].Value.ToString();
+			selectionUser.UserName = dataGridView1[2, row].Value.ToString();
+			selectionUser.UserAge = dataGridView1[3, row].Value.ToString();
+			selectionUser.UserGender = dataGridView1[4, row].Value.ToString();
+			selectionUser.UserAffiliation = dataGridView1[5, row].Value.ToString();
+
+			return selectionUser;
+		}
+
+		/// <summary>
+		/// エラーダイアログ表示処理
+		/// </summary>
+		public void ShowErrorDialog()
+		{
+			ErrorDisplay errorDisplay = new ErrorDisplay(ErrorTypeParam);
+			errorDisplay.ShowDialog();
+			errorDisplay.Dispose();
+			return;
+		}
+
+		/// <summary>
+		/// シリアライズ処理
+		/// </summary>
+		/// <param name="DataList"></param>
+		/// <returns></returns>
+		public string Selialize()
+		{
+			var serializedJsonText = "";
+
+			switch (JsonFileTypeParam)
+			{
+				case JsonFileType.UserJsonType:
+
+					//シリアライズ化
+					serializedJsonText = JsonConvert.SerializeObject(UsersList, Formatting.Indented);
+					break;
+
+				case JsonFileType.DepartmentsJsonType:
+
+					//シリアライズ化
+					serializedJsonText = JsonConvert.SerializeObject(DepartmentsList, Formatting.Indented);
+					break;
+
+				default:
+					break;
+			}
+			return serializedJsonText;
+		}
+
+		/// <summary>
+		/// jsonファイルに保存処理
+		/// </summary>
+		/// <param name="jsonText"></param>
+		public void SaveFile(string jsonText)
+		{
+			var jsonFilePath = "";
+
+			switch (JsonFileTypeParam)
+			{
+				case JsonFileType.UserJsonType:
+					jsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
+					break;
+
+				case JsonFileType.DepartmentsJsonType:
+					jsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+					break;
+
+				default:
+					break;
+			}
 
 			//ファイルへ書き込み
 			using (StreamWriter streamWriter =
-				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json", false, Encoding.UTF8))
+				new StreamWriter(jsonFilePath, false, Encoding.UTF8))
 			{
-				streamWriter.Write(serializedUsersObject);
+				streamWriter.Write(jsonText);
 			}
-			using (StreamWriter streamWriter =
-				new StreamWriter(@"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json", false, Encoding.UTF8))
-			{
-				streamWriter.Write(serializedDepartmentsObject);
-			}
+			return;
 		}
+
 	}
 }
