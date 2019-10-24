@@ -157,7 +157,7 @@ namespace UserMasterMaintenance
 		/// jsonファイルの読み込み
 		/// </summary>
 		/// <returns></returns>
-		public string RoadFile()
+		private string RoadFile()
 		{
 			var JsonFilePath = "";
 			var DataListJsonText = "";
