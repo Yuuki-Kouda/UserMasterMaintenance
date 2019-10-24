@@ -106,7 +106,7 @@ namespace UserMasterMaintenance
 			//一覧からすべてのユーザー情報を取得
 			UsersList = usersBindingSource.DataSource as List<Users>;
 
-			ShowEditScreen(selectUsers);
+			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.UpdateButton);
 
 			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
