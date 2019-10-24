@@ -119,12 +119,10 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button3_Click(object sender, EventArgs e)
 		{
-			ClickedButtonTypeParam = ClickButtonType.DeleteButton;
-
 			//チェックボックス判定
 			if (!DetermineChecBox())
 			{
-				ShowErrorDialog();
+				ShowErrorDialog(ErrorType.CheckBoxError);
 				return;
 			}
 
@@ -134,7 +132,7 @@ namespace UserMasterMaintenance
 			//一覧からすべてのユーザー情報を取得
 			UsersList = usersBindingSource.DataSource as List<Users>;
 
-			ShowEditScreen(selectUsers);
+			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.DeleteButton);
 
 			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
