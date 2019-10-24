@@ -58,7 +58,15 @@ namespace UserMasterMaintenance
 		}
 
 		/// <summary>
+		/// ロード
 		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
+		{
+			//一覧データ画面設定
+			usersBindingSource.DataSource = UsersList;
+		}
 
 		/// <summary>
 		/// 追加ボタンクリック
