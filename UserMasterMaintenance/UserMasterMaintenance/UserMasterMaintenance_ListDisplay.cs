@@ -93,12 +93,10 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button2_Click(object sender, EventArgs e)
 		{
-			ClickedButtonTypeParam = ClickButtonType.UpdateButton;
-
 			//チェックボックス判定
 			if (!DetermineChecBox())
 			{
-				ShowErrorDialog();
+				ShowErrorDialog(ErrorType.CheckBoxError);
 				return;
 			}
 
