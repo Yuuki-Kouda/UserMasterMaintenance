@@ -188,7 +188,7 @@ namespace UserMasterMaintenance
 		/// デシリアライズ処理
 		/// </summary>
 		/// <param name="jsonText"></param>
-		public void Deselialize(string jsonText)
+		private void Deselialize(string jsonText)
 		{
 			switch (JsonFileTypeParam)
 			{
