@@ -75,14 +75,12 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-			ClickedButtonTypeParam = ClickButtonType.AddButton;
-
 			var selectUsers = new Users();
 
 			//一覧からすべてのユーザー情報を取得
 			UsersList = usersBindingSource.DataSource as List<Users>;
 
-			ShowEditScreen(selectUsers);
+			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.AddButton);
 
 			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
