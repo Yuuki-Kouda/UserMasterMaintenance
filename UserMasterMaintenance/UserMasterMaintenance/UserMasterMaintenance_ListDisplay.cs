@@ -31,14 +31,7 @@ namespace UserMasterMaintenance
 
 		public enum ErrorType
 		{
-			NotCheckCheckBox
-		}
-
-		public enum ClickButtonType
-		{
-			AddButton,
-			UpdateButton,
-			DeleteButton,
+			CheckBoxError
 		}
 
 		public enum JsonFileType
@@ -49,6 +42,7 @@ namespace UserMasterMaintenance
 
 		/// <summary>
 		/// Usersクラス（users.json）
+		/// エラータイプパラメータ
 		/// </summary>
 		public class Users
 		{
@@ -88,31 +82,26 @@ namespace UserMasterMaintenance
 			/// </summary>
 			public string Department { get; set; }
 		}
+		public ErrorType ErrorTypeParam { get; set; }
 
 		/// <summary>
 		/// Usersリスト（一覧）
 		/// </summary>
-		public List<Users> UsersList { get; set; }
+		private List<Users> UsersList { get; set; }
 
 		/// <summary>
 		/// 所属リスト（コンボボックス一覧）
 		/// </summary>
-		public List<Departments> DepartmentsList { get; set; }
-
-		/// <summary>
-		/// エラーパラメータ
-		/// </summary>
-		public ErrorType ErrorTypeParam { get; set; }
-
-		/// <summary>
-		/// クリックボタンタイプパラメータ
-		/// </summary>
-		public ClickButtonType ClickedButtonTypeParam { get; set; }
+		private List<Departments> DepartmentsList { get; set; }
 
 		/// <summary>
 		/// jsonファイルタイプパラメータ
 		/// </summary>
-		public JsonFileType JsonFileTypeParam { get; set; }
+		private JsonFileType JsonFileTypeParam { get; set; }
+
+
+		/// <summary>
+		/// </summary>
 
 		/// <summary>
 		/// 追加ボタンクリック
