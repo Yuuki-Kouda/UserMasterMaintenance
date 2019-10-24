@@ -14,21 +14,6 @@ namespace UserMasterMaintenance
 {
 	public partial class UserMasterMaintenance_ListDisplay : Form
 	{
-		public UserMasterMaintenance_ListDisplay()
-		{
-			InitializeComponent();
-
-			//一覧データ取得
-			JsonFileTypeParam = JsonFileType.UserJsonType;
-			Deselialize(RoadFile());
-
-			JsonFileTypeParam = JsonFileType.DepartmentsJsonType;
-			Deselialize(RoadFile());
-
-			//一覧データ画面設定
-			usersBindingSource.DataSource = UsersList;
-		}
-
 		public enum ErrorType
 		{
 			CheckBoxError
@@ -60,6 +45,17 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private JsonFileType JsonFileTypeParam { get; set; }
 
+		public UserMasterMaintenance_ListDisplay()
+		{
+			InitializeComponent();
+
+			//一覧データ取得
+			JsonFileTypeParam = JsonFileType.UserJsonType;
+			Deselialize(RoadFile());
+
+			JsonFileTypeParam = JsonFileType.DepartmentsJsonType;
+			Deselialize(RoadFile());
+		}
 
 		/// <summary>
 		/// </summary>
