@@ -25,7 +25,7 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 年齢
 		/// </summary>
-		public string UserAge { get; set; }
+		public byte UserAge { get; set; }
 
 		/// <summary>
 		/// 性別
