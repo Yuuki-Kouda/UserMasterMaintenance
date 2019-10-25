@@ -334,5 +334,6 @@ ASALocalRun/
 *.sln
 *.csproj
 *.resx
+*.json
 Properties/
 Program/
