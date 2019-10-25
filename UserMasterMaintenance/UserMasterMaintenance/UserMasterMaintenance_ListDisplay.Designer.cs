@@ -37,13 +37,13 @@
 			this.usersDataBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
 			this.usersDataClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.userIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.userAgeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.userGenderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.userAffiliationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).BeginInit();
@@ -84,6 +84,7 @@
 			// 
 			// dataGridView1
 			// 
+			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -99,10 +100,6 @@
 			this.dataGridView1.RowTemplate.Height = 21;
 			this.dataGridView1.Size = new System.Drawing.Size(824, 373);
 			this.dataGridView1.TabIndex = 3;
-			// 
-			// usersBindingSource
-			// 
-			this.usersBindingSource.DataSource = typeof(UserMasterMaintenance.UserMasterMaintenance_ListDisplay.Users);
 			// 
 			// CheckBox
 			// 
@@ -151,6 +148,10 @@
 			this.userAffiliationDataGridViewTextBoxColumn.ReadOnly = true;
 			this.userAffiliationDataGridViewTextBoxColumn.Width = 150;
 			// 
+			// usersBindingSource
+			// 
+			this.usersBindingSource.DataSource = typeof(UserMasterMaintenance.Users);
+			// 
 			// UserMasterMaintenance_ListDisplay
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -160,9 +161,11 @@
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "UserMasterMaintenance_ListDisplay";
 			this.Text = "UserMasterMaintenance";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFromClosed);
+			this.Load += new System.EventHandler(this.UserMasterMaintenance_ListDisplay_Load);
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersDataBindingSource2)).EndInit();
