@@ -45,6 +45,9 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private JsonFileType JsonFileTypeParam { get; set; }
 
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
 		public UserMasterMaintenance_ListDisplay()
 		{
 			InitializeComponent();
@@ -82,7 +85,6 @@ namespace UserMasterMaintenance
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.AddButton);
 
-			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
 		}
 
@@ -99,16 +101,12 @@ namespace UserMasterMaintenance
 				ShowErrorDialog(ErrorType.CheckBoxError);
 				return;
 			}
-
-			//一覧から選択ユーザー情報を取得
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
-			//一覧からすべてのユーザー情報を取得
 			UsersList = usersBindingSource.DataSource as BindingList<Users>;
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.UpdateButton);
 
-			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
 		}
 
@@ -119,22 +117,17 @@ namespace UserMasterMaintenance
 		/// <param name="e"></param>
 		private void button3_Click(object sender, EventArgs e)
 		{
-			//チェックボックス判定
 			if (!DetermineChecBox())
 			{
 				ShowErrorDialog(ErrorType.CheckBoxError);
 				return;
 			}
-
-			//一覧から選択ユーザー情報を取得
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
-			//一覧からすべてのユーザー情報を取得
 			UsersList = usersBindingSource.DataSource as BindingList<Users>;
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.DeleteButton);
 
-			//一覧データ画面設定
 			usersBindingSource.DataSource = UsersList;
 		}
 
@@ -219,12 +212,12 @@ namespace UserMasterMaintenance
 				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, clickedButton);
 			
 			var result = inputDisplay.ShowDialog();
+
 			if (result == DialogResult.Cancel)
 			{
 				inputDisplay.Close();
 				return;
 			}
-
 			UsersList = inputDisplay.UsersList;
 			inputDisplay.Close();
 
@@ -245,7 +238,6 @@ namespace UserMasterMaintenance
 
 				if ((bool)dataGridView1[0, i].Value) CheckCount += 1;
 			}
-
 			if (CheckCount == 1) return true;
 			return false;
 		}
@@ -264,7 +256,6 @@ namespace UserMasterMaintenance
 
 				if ((bool)dataGridView1[0, row].Value) break;
 			}
-
 			selectionUser.UserId = (string)dataGridView1[1, row].Value;
 			selectionUser.UserName = (string)dataGridView1[2, row].Value;
 			selectionUser.UserAge = (byte)dataGridView1[3, row].Value;
@@ -290,9 +281,7 @@ namespace UserMasterMaintenance
 				default:
 					break;
 			}
-
 			MessageBox.Show(messageText, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
 			return;
 		}
 
@@ -355,6 +344,5 @@ namespace UserMasterMaintenance
 			}
 			return;
 		}
-
 	}
 }

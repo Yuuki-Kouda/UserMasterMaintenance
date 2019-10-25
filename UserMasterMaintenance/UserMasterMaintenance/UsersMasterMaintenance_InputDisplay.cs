@@ -41,6 +41,7 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private Users SelectedUsers { get; set; }
 
+		/// <summary>
 		/// Usersリスト（一覧）
 		/// </summary>
 		public BindingList<Users> UsersList { get; set; }
@@ -55,6 +56,13 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private Users InputUsers { get; set; }
 
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="users"></param>
+		/// <param name="usersList"></param>
+		/// <param name="departmentsList"></param>
+		/// <param name="clickButtonTypeParam"></param>
 		public UsersMasterMaintenance_InputDisplay(Users users,
 												   BindingList<Users> usersList,
 												   List<Departments> departmentsList,
@@ -62,6 +70,7 @@ namespace UserMasterMaintenance
 		{
 			InitializeComponent();
 
+			//初期設定
 			SelectedUsers = users;
 			UsersList = usersList;
 			DepartmentsList = departmentsList;
@@ -86,14 +95,12 @@ namespace UserMasterMaintenance
 				case ClickButtonType.UpdateButton:
 
 					InputDisplayFromUser();
-
 					break;
 
 				case ClickButtonType.DeleteButton:
 
 					InputDisplayFromUser();
 					MakeInputDepartmentReadOnly();
-
 					break;
 			}
 		}
@@ -114,19 +121,16 @@ namespace UserMasterMaintenance
 						ShowErrorDialog(ErrorType.NotInputError);
 						return;
 					}
-
 					if(!ConfirmInputId())
 					{
 						ShowErrorDialog(ErrorType.SameIdError);
 						return;
 					}
-
 					if ( !ConfirmInputNumber(textBox3.Text))
 					{
 						ShowErrorDialog(ErrorType.NotNumberError);
 						return;
 					}
-
 					break;
 
 				case ClickButtonType.UpdateButton:
@@ -136,19 +140,16 @@ namespace UserMasterMaintenance
 						ShowErrorDialog(ErrorType.NotInputError);
 						return;
 					}
-
 					if (!ConfirmInputId())
 					{
 						ShowErrorDialog(ErrorType.SameIdError);
 						return;
 					}
-
 					if (!ConfirmInputNumber(textBox3.Text))
 					{
 						ShowErrorDialog(ErrorType.NotNumberError);
 						return;
 					}
-
 					break;
 
 				case ClickButtonType.DeleteButton:
@@ -171,6 +172,7 @@ namespace UserMasterMaintenance
 
 			EditList();
 
+			//編集完了
 			DialogResult = DialogResult.OK;
 		}
 
@@ -204,7 +206,7 @@ namespace UserMasterMaintenance
 			{
 				comboBox1.Items.Add(departmentsList.Department);
 			}
-
+			//初期値
 			comboBox1.SelectedIndex = 0;
 			return;
 		}
@@ -276,7 +278,7 @@ namespace UserMasterMaintenance
 		{
 			if(ClickedButtonTypeParam == ClickButtonType.UpdateButton)
 			{
-				//更新時にもともとのIDと同じ場合はtrue
+				//更新時にもともとのIDと入力IDが同じ場合はtrue
 				if (SelectedUsers.UserId == textBox1.Text) return true;
 			}
 
@@ -301,7 +303,6 @@ namespace UserMasterMaintenance
 			users.UserAffiliation = comboBox1.Text;
 
 			InputUsers = users;
-
 			return;
 		}
 
@@ -315,7 +316,6 @@ namespace UserMasterMaintenance
 				case ClickButtonType.AddButton:
 
 					UsersList.Add(InputUsers);
-
 					break;
 
 				case ClickButtonType.UpdateButton:
@@ -357,7 +357,6 @@ namespace UserMasterMaintenance
 				default:
 					break;
 			}
-
 			MessageBox.Show(messageText, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			return;
 		}
