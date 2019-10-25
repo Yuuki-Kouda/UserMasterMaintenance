@@ -265,11 +265,11 @@ namespace UserMasterMaintenance
 				if ((bool)dataGridView1[0, row].Value) break;
 			}
 
-			selectionUser.UserId = dataGridView1[1, row].Value.ToString();
-			selectionUser.UserName = dataGridView1[2, row].Value.ToString();
-			selectionUser.UserAge = dataGridView1[3, row].Value.ToString();
-			selectionUser.UserGender = dataGridView1[4, row].Value.ToString();
-			selectionUser.UserAffiliation = dataGridView1[5, row].Value.ToString();
+			selectionUser.UserId = (string)dataGridView1[1, row].Value;
+			selectionUser.UserName = (string)dataGridView1[2, row].Value;
+			selectionUser.UserAge = (byte)dataGridView1[3, row].Value;
+			selectionUser.UserGender = (string)dataGridView1[4, row].Value;
+			selectionUser.UserAffiliation = (string)dataGridView1[5, row].Value;
 
 			return selectionUser;
 		}
