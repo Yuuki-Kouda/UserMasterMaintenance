@@ -243,7 +243,7 @@ namespace UserMasterMaintenance
 			{
 				if (dataGridView1[0, i].Value == null) continue;
 
-				if (dataGridView1[0, i].Value.ToString() == "true") CheckCount += 1;
+				if ((bool)dataGridView1[0, i].Value) CheckCount += 1;
 			}
 
 			if (CheckCount == 1) return true;
