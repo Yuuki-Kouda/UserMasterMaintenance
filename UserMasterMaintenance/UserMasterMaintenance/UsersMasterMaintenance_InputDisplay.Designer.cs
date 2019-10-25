@@ -90,7 +90,9 @@
 			// 
 			// textBox1
 			// 
+			this.textBox1.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.textBox1.Location = new System.Drawing.Point(64, 35);
+			this.textBox1.MaxLength = 5;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(69, 19);
 			this.textBox1.TabIndex = 5;
@@ -98,13 +100,16 @@
 			// textBox2
 			// 
 			this.textBox2.Location = new System.Drawing.Point(64, 72);
+			this.textBox2.MaxLength = 13;
 			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(195, 19);
+			this.textBox2.Size = new System.Drawing.Size(152, 19);
 			this.textBox2.TabIndex = 6;
 			// 
 			// textBox3
 			// 
+			this.textBox3.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.textBox3.Location = new System.Drawing.Point(64, 111);
+			this.textBox3.MaxLength = 3;
 			this.textBox3.Name = "textBox3";
 			this.textBox3.Size = new System.Drawing.Size(69, 19);
 			this.textBox3.TabIndex = 7;
@@ -112,6 +117,7 @@
 			// radioButton1
 			// 
 			this.radioButton1.AutoSize = true;
+			this.radioButton1.Checked = true;
 			this.radioButton1.Location = new System.Drawing.Point(64, 146);
 			this.radioButton1.Name = "radioButton1";
 			this.radioButton1.Size = new System.Drawing.Size(47, 16);
@@ -133,6 +139,7 @@
 			// 
 			// comboBox1
 			// 
+			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox1.FormattingEnabled = true;
 			this.comboBox1.Location = new System.Drawing.Point(64, 180);
 			this.comboBox1.Name = "comboBox1";
@@ -177,8 +184,11 @@
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "UsersMasterMaintenance_InputDisplay";
 			this.Text = "UsersMasterMaintenance_InputDisplay";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UsersMasterMaintenance_InputDisplay_FormClosed);
+			this.Load += new System.EventHandler(this.UsersMasterMaintenance_InputDisplay_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
