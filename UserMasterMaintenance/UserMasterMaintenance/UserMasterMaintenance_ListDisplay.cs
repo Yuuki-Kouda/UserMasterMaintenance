@@ -216,10 +216,17 @@ namespace UserMasterMaintenance
 		private void ShowEditScreen(Users selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType clickedButton)
 		{
 			UsersMasterMaintenance_InputDisplay inputDisplay
-				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, ClickedButtonTypeParam);
+				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, clickedButton);
 			
-			UsersList = inputDisplay.ShowDialog();
-			inputDisplay.Dispose();
+			var result = inputDisplay.ShowDialog();
+			if (result == DialogResult.Cancel)
+			{
+				inputDisplay.Close();
+				return;
+			}
+
+			UsersList = inputDisplay.UsersList;
+			inputDisplay.Close();
 
 			return;
 		}
