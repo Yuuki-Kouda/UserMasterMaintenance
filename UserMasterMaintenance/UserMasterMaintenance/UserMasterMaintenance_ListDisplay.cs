@@ -262,7 +262,7 @@ namespace UserMasterMaintenance
 			{
 				if (dataGridView1[0, row].Value == null) continue;
 
-				if (dataGridView1[0, row].Value.ToString() == "true") break;
+				if ((bool)dataGridView1[0, row].Value) break;
 			}
 
 			selectionUser.UserId = dataGridView1[1, row].Value.ToString();
