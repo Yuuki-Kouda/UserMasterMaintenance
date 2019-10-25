@@ -16,6 +16,7 @@ namespace UserMasterMaintenance
 												   List<UserMasterMaintenance_ListDisplay.Users> usersList,
 												   List<UserMasterMaintenance_ListDisplay.Departments> departmentsList,
 												   UserMasterMaintenance_ListDisplay.ClickButtonType clickButtonTypeParam)
+		public enum ErrorType
 		{
 			InitializeComponent();
 
