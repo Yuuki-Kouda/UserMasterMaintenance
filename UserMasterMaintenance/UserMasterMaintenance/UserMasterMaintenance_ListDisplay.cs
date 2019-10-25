@@ -33,7 +33,7 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// Usersリスト（一覧）
 		/// </summary>
-		private List<Users> UsersList { get; set; }
+		private BindingList<Users> UsersList { get; set; }
 
 		/// <summary>
 		/// 所属リスト（コンボボックス一覧）
@@ -78,7 +78,7 @@ namespace UserMasterMaintenance
 			var selectUsers = new Users();
 
 			//一覧からすべてのユーザー情報を取得
-			UsersList = usersBindingSource.DataSource as List<Users>;
+			UsersList = usersBindingSource.DataSource as BindingList<Users>;
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.AddButton);
 
@@ -104,7 +104,7 @@ namespace UserMasterMaintenance
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
 			//一覧からすべてのユーザー情報を取得
-			UsersList = usersBindingSource.DataSource as List<Users>;
+			UsersList = usersBindingSource.DataSource as BindingList<Users>;
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.UpdateButton);
 
@@ -130,7 +130,7 @@ namespace UserMasterMaintenance
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
 			//一覧からすべてのユーザー情報を取得
-			UsersList = usersBindingSource.DataSource as List<Users>;
+			UsersList = usersBindingSource.DataSource as BindingList<Users>;
 
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.DeleteButton);
 
@@ -195,9 +195,9 @@ namespace UserMasterMaintenance
 				case JsonFileType.UserJsonType:
 
 					//デシリアライズ
-					UsersList = JsonConvert.DeserializeObject<List<Users>>(jsonText);
+					UsersList = JsonConvert.DeserializeObject<BindingList<Users>>(jsonText);
 					break;
-
+					
 				case JsonFileType.DepartmentsJsonType:
 
 					//デシリアライズ
