@@ -213,7 +213,7 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 編集画面表示処理
 		/// </summary>
-		public void ShowEditScreen(Users selectUsers)
+		private void ShowEditScreen(Users selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType clickedButton)
 		{
 			UsersMasterMaintenance_InputDisplay inputDisplay
 				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, ClickedButtonTypeParam);
@@ -246,7 +246,7 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// 選択されたユーザーデータを一覧から取得する
 		/// </summary>
-		public Users AcquireSelectUserDataFromDisplay()
+		private Users AcquireSelectUserDataFromDisplay()
 		{
 			Users selectionUser = new Users();
 			int row = 0;
@@ -270,7 +270,7 @@ namespace UserMasterMaintenance
 		/// <summary>
 		/// エラーダイアログ表示処理
 		/// </summary>
-		public void ShowErrorDialog()
+		private void ShowErrorDialog(ErrorType errorTypeParam)
 		{
 			ErrorDisplay errorDisplay = new ErrorDisplay(ErrorTypeParam);
 			errorDisplay.ShowDialog();
@@ -283,7 +283,7 @@ namespace UserMasterMaintenance
 		/// </summary>
 		/// <param name="DataList"></param>
 		/// <returns></returns>
-		public string Selialize()
+		private string Selialize()
 		{
 			var serializedJsonText = "";
 
@@ -311,7 +311,7 @@ namespace UserMasterMaintenance
 		/// jsonファイルに保存処理
 		/// </summary>
 		/// <param name="jsonText"></param>
-		public void SaveFile(string jsonText)
+		private void SaveFile(string jsonText)
 		{
 			var jsonFilePath = "";
 
