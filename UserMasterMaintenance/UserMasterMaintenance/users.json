@@ -1,10 +1,10 @@
 ﻿[
   {
-    "UserId": "yuki0",
-    "UserName": "幸田有生",
-    "UserAge": 33,
-    "UserGender": "男性",
-    "UserAffiliation": "エボルテック"
+    "UserId": "yuki1",
+    "UserName": "幸田",
+    "UserAge": 31,
+    "UserGender": "女性",
+    "UserAffiliation": "温泉行きたい"
   },
   {
     "UserId": "yuki2",
@@ -131,19 +131,5 @@
     "UserAge": 11,
     "UserGender": "女性",
     "UserAffiliation": "エボルテック"
-  },
-  {
-    "UserId": "11111",
-    "UserName": "ｑｑｑｑｑｑｑｑｑ",
-    "UserAge": 1,
-    "UserGender": "女性",
-    "UserAffiliation": "エボルテック"
-  },
-  {
-    "UserId": "yuuuu",
-    "UserName": "ようこそそそそそそそそそそ",
-    "UserAge": 1,
-    "UserGender": "女性",
-    "UserAffiliation": "バスケしたい"
   }
 ]
