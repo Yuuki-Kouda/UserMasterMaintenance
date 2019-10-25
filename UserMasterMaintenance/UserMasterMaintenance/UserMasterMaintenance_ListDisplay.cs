@@ -272,9 +272,20 @@ namespace UserMasterMaintenance
 		/// </summary>
 		private void ShowErrorDialog(ErrorType errorTypeParam)
 		{
-			ErrorDisplay errorDisplay = new ErrorDisplay(ErrorTypeParam);
-			errorDisplay.ShowDialog();
-			errorDisplay.Dispose();
+			var messageText = "";
+
+			switch (errorTypeParam)
+			{
+				case ErrorType.CheckBoxError:
+					messageText = "データを一つのみ選択してください";
+					break;
+
+				default:
+					break;
+			}
+
+			MessageBox.Show(messageText, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 			return;
 		}
 
