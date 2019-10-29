@@ -158,8 +158,7 @@ namespace UserMasterMaintenance
 
 			EditList();
 
-			//編集完了
-			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		/// <summary>

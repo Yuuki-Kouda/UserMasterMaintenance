@@ -36,11 +36,6 @@ namespace UserMasterMaintenance
 		private JsonFileType JsonFileTypeParam { get; set; }
 
 		/// <summary>
-		/// 選択行
-		/// </summary>
-		private int SelectedRow { get; set; }
-
-		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public UserMasterMaintenance_ListDisplay()
@@ -194,8 +189,6 @@ namespace UserMasterMaintenance
 				= new UsersMasterMaintenance_InputDisplay(selectUsers, clickedButton);
 
 			var result = inputDisplay.ShowDialog();
-			
-			inputDisplay.Close();
 			return;
 		}
 
@@ -223,18 +216,19 @@ namespace UserMasterMaintenance
 		private Users AcquireSelectUserDataFromDisplay()
 		{
 			Users selectionUser = new Users();
+			int row = new int();
 
-			for (SelectedRow = 0; dataGridView1.Rows.Count > SelectedRow; SelectedRow++)
+			for (row = 0; dataGridView1.Rows.Count > row; row++)
 			{
-				if (dataGridView1[0, SelectedRow].Value == null) continue;
+				if (dataGridView1[0, row].Value == null) continue;
 
-				if ((bool)dataGridView1[0, SelectedRow].Value) break;
+				if ((bool)dataGridView1[0, row].Value) break;
 			}
-			selectionUser.UserId = (string)dataGridView1[1, SelectedRow].Value;
-			selectionUser.UserName = (string)dataGridView1[2, SelectedRow].Value;
-			selectionUser.UserAge = (int)dataGridView1[3, SelectedRow].Value;
-			selectionUser.UserGender = (string)dataGridView1[4, SelectedRow].Value;
-			selectionUser.UserAffiliation = (string)dataGridView1[5, SelectedRow].Value;
+			selectionUser.UserId = (string)dataGridView1[1, row].Value;
+			selectionUser.UserName = (string)dataGridView1[2, row].Value;
+			selectionUser.UserAge = (int)dataGridView1[3, row].Value;
+			selectionUser.UserGender = (string)dataGridView1[4, row].Value;
+			selectionUser.UserAffiliation = (string)dataGridView1[5, row].Value;
 			
 			return selectionUser;
 		}
