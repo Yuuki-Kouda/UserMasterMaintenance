@@ -332,3 +332,4 @@ ASALocalRun/
 *.config
 *.resx
 *.json
+*.csproj
