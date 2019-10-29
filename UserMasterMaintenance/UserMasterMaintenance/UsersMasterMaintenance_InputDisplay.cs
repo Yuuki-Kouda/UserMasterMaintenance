@@ -42,38 +42,24 @@ namespace UserMasterMaintenance
 		private Users SelectedUsers { get; set; }
 
 		/// <summary>
-		/// Usersリスト（一覧）
-		/// </summary>
-		public BindingList<Users> UsersList { get; set; }
-
-		/// <summary>
-		/// 所属リスト（コンボボックス一覧）
-		/// </summary>
-		private List<Departments> DepartmentsList { get; set; }
-
-		/// <summary>
 		/// 編集Userデータ
 		/// </summary>
-		private Users InputUsers { get; set; }
+		public Users InputUsers { get; set; }
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="users"></param>
+		/// <param name="selectedusers"></param>
 		/// <param name="usersList"></param>
 		/// <param name="departmentsList"></param>
 		/// <param name="clickButtonTypeParam"></param>
-		public UsersMasterMaintenance_InputDisplay(Users users,
-												   BindingList<Users> usersList,
-												   List<Departments> departmentsList,
+		public UsersMasterMaintenance_InputDisplay(Users selectedusers,
 												   ClickButtonType clickButtonTypeParam)
 		{
 			InitializeComponent();
 
 			//初期設定
-			SelectedUsers = users;
-			UsersList = usersList;
-			DepartmentsList = departmentsList;
+			SelectedUsers = selectedusers;
 			ClickedButtonTypeParam = clickButtonTypeParam;
 
 			StoreComboboxFromDepartmentsList();
@@ -188,21 +174,11 @@ namespace UserMasterMaintenance
 		}
 
 		/// <summary>
-		/// 閉じるボタンクリック時
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void UsersMasterMaintenance_InputDisplay_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			DialogResult = DialogResult.Cancel;
-		}
-
-		/// <summary>
 		/// コンボボックス項目設定
 		/// </summary>
 		private void StoreComboboxFromDepartmentsList()
 		{
-			foreach(var departmentsList in DepartmentsList)
+			foreach (var departmentsList in Departments.DepartmentsList)
 			{
 				comboBox1.Items.Add(departmentsList.Department);
 			}
@@ -210,6 +186,7 @@ namespace UserMasterMaintenance
 			comboBox1.SelectedIndex = 0;
 			return;
 		}
+
 		/// <summary>
 		/// ユーザー情報画面設定処理
 		/// </summary>
@@ -266,8 +243,11 @@ namespace UserMasterMaintenance
 		/// <returns></returns>
 		private bool ConfirmInputNumber(string inputText)
 		{
-			var canConvert = byte.TryParse(inputText, out var numberText);
-			return canConvert;
+			if (!int.TryParse(inputText, out var numberText)) return false;
+			if(numberText < 0 || numberText > 999) return false;
+			if (inputText.Contains(".")) return false;
+
+			return true;
 		}
 
 		/// <summary>
@@ -282,7 +262,7 @@ namespace UserMasterMaintenance
 				if (SelectedUsers.UserId == textBox1.Text) return true;
 			}
 
-			foreach(var usersList in UsersList)
+			foreach(var usersList in Users.UsersList)
 			{
 				if (usersList.UserId == textBox1.Text) return false;
 			}
@@ -297,7 +277,7 @@ namespace UserMasterMaintenance
 
 			users.UserId = textBox1.Text;
 			users.UserName = textBox2.Text;
-			users.UserAge = byte.Parse(textBox3.Text);
+			users.UserAge = int.Parse(textBox3.Text);
 			if (radioButton1.Checked) users.UserGender = "男性";
 			else users.UserGender = "女性";
 			users.UserAffiliation = comboBox1.Text;
@@ -315,19 +295,24 @@ namespace UserMasterMaintenance
 			{
 				case ClickButtonType.AddButton:
 
-					UsersList.Add(InputUsers);
+					Users.UsersList.Add(InputUsers);
 					break;
 
 				case ClickButtonType.UpdateButton:
+
+					var users = Users.UsersList.Single(user => user.UserId == SelectedUsers.UserId);					
+					users.UserId = InputUsers.UserId;
+					users.UserName = InputUsers.UserName;
+					users.UserAge = InputUsers.UserAge;
+					users.UserGender = InputUsers.UserGender;
+					users.UserAffiliation = InputUsers.UserAffiliation;
 					
-					var index = UsersList.ToList().FindIndex(user => user.UserId == SelectedUsers.UserId);
-					UsersList[index] = InputUsers;
 					break;
 
 				case ClickButtonType.DeleteButton:
 
-					index = UsersList.ToList().FindIndex(user => user.UserId == SelectedUsers.UserId);
-					UsersList.RemoveAt(index);
+					users = Users.UsersList.Single(user => user.UserId == SelectedUsers.UserId);
+					Users.UsersList.Remove(users);
 					break;
 			}
 			return;

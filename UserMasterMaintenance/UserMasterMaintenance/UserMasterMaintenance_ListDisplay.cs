@@ -31,19 +31,14 @@ namespace UserMasterMaintenance
 		public ErrorType ErrorTypeParam { get; set; }
 
 		/// <summary>
-		/// Usersリスト（一覧）
-		/// </summary>
-		private BindingList<Users> UsersList { get; set; }
-
-		/// <summary>
-		/// 所属リスト（コンボボックス一覧）
-		/// </summary>
-		private List<Departments> DepartmentsList { get; set; }
-
-		/// <summary>
 		/// jsonファイルタイプパラメータ
 		/// </summary>
 		private JsonFileType JsonFileTypeParam { get; set; }
+
+		/// <summary>
+		/// 選択行
+		/// </summary>
+		private int SelectedRow { get; set; }
 
 		/// <summary>
 		/// コンストラクタ
@@ -68,7 +63,7 @@ namespace UserMasterMaintenance
 		private void UserMasterMaintenance_ListDisplay_Load(object sender, EventArgs e)
 		{
 			//一覧データ画面設定
-			usersBindingSource.DataSource = UsersList;
+			dataGridView1.DataSource = Users.UsersList;
 		}
 
 		/// <summary>
@@ -80,12 +75,7 @@ namespace UserMasterMaintenance
 		{
 			var selectUsers = new Users();
 
-			//一覧からすべてのユーザー情報を取得
-			UsersList = usersBindingSource.DataSource as BindingList<Users>;
-
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.AddButton);
-
-			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
@@ -103,11 +93,7 @@ namespace UserMasterMaintenance
 			}
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
-			UsersList = usersBindingSource.DataSource as BindingList<Users>;
-
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.UpdateButton);
-
-			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
@@ -124,11 +110,7 @@ namespace UserMasterMaintenance
 			}
 			var selectUsers = AcquireSelectUserDataFromDisplay();
 
-			UsersList = usersBindingSource.DataSource as BindingList<Users>;
-
 			ShowEditScreen(selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType.DeleteButton);
-
-			usersBindingSource.DataSource = UsersList;
 		}
 
 		/// <summary>
@@ -188,13 +170,13 @@ namespace UserMasterMaintenance
 				case JsonFileType.UserJsonType:
 
 					//デシリアライズ
-					UsersList = JsonConvert.DeserializeObject<BindingList<Users>>(jsonText);
+					Users.UsersList = JsonConvert.DeserializeObject<BindingList<Users>>(jsonText);
 					break;
-					
+
 				case JsonFileType.DepartmentsJsonType:
 
 					//デシリアライズ
-					DepartmentsList = JsonConvert.DeserializeObject<List<Departments>>(jsonText);
+					Departments.DepartmentsList = JsonConvert.DeserializeObject<List<Departments>>(jsonText);
 					break;
 
 				default:
@@ -209,18 +191,11 @@ namespace UserMasterMaintenance
 		private void ShowEditScreen(Users selectUsers, UsersMasterMaintenance_InputDisplay.ClickButtonType clickedButton)
 		{
 			UsersMasterMaintenance_InputDisplay inputDisplay
-				= new UsersMasterMaintenance_InputDisplay(selectUsers, UsersList, DepartmentsList, clickedButton);
-			
+				= new UsersMasterMaintenance_InputDisplay(selectUsers, clickedButton);
+
 			var result = inputDisplay.ShowDialog();
-
-			if (result == DialogResult.Cancel)
-			{
-				inputDisplay.Close();
-				return;
-			}
-			UsersList = inputDisplay.UsersList;
+			
 			inputDisplay.Close();
-
 			return;
 		}
 
@@ -248,20 +223,19 @@ namespace UserMasterMaintenance
 		private Users AcquireSelectUserDataFromDisplay()
 		{
 			Users selectionUser = new Users();
-			int row = 0;
 
-			for (row = 0; dataGridView1.Rows.Count > row; row++)
+			for (SelectedRow = 0; dataGridView1.Rows.Count > SelectedRow; SelectedRow++)
 			{
-				if (dataGridView1[0, row].Value == null) continue;
+				if (dataGridView1[0, SelectedRow].Value == null) continue;
 
-				if ((bool)dataGridView1[0, row].Value) break;
+				if ((bool)dataGridView1[0, SelectedRow].Value) break;
 			}
-			selectionUser.UserId = (string)dataGridView1[1, row].Value;
-			selectionUser.UserName = (string)dataGridView1[2, row].Value;
-			selectionUser.UserAge = (byte)dataGridView1[3, row].Value;
-			selectionUser.UserGender = (string)dataGridView1[4, row].Value;
-			selectionUser.UserAffiliation = (string)dataGridView1[5, row].Value;
-
+			selectionUser.UserId = (string)dataGridView1[1, SelectedRow].Value;
+			selectionUser.UserName = (string)dataGridView1[2, SelectedRow].Value;
+			selectionUser.UserAge = (int)dataGridView1[3, SelectedRow].Value;
+			selectionUser.UserGender = (string)dataGridView1[4, SelectedRow].Value;
+			selectionUser.UserAffiliation = (string)dataGridView1[5, SelectedRow].Value;
+			
 			return selectionUser;
 		}
 
@@ -299,13 +273,13 @@ namespace UserMasterMaintenance
 				case JsonFileType.UserJsonType:
 
 					//シリアライズ化
-					serializedJsonText = JsonConvert.SerializeObject(UsersList, Formatting.Indented);
+					serializedJsonText = JsonConvert.SerializeObject(Users.UsersList, Formatting.Indented);
 					break;
 
 				case JsonFileType.DepartmentsJsonType:
 
 					//シリアライズ化
-					serializedJsonText = JsonConvert.SerializeObject(DepartmentsList, Formatting.Indented);
+					serializedJsonText = JsonConvert.SerializeObject(Departments.DepartmentsList, Formatting.Indented);
 					break;
 
 				default:
