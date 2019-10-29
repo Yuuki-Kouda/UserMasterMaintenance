@@ -187,7 +187,6 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "UsersMasterMaintenance_InputDisplay";
 			this.Text = "UsersMasterMaintenance_InputDisplay";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UsersMasterMaintenance_InputDisplay_FormClosed);
 			this.Load += new System.EventHandler(this.UsersMasterMaintenance_InputDisplay_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
