@@ -330,6 +330,4 @@ ASALocalRun/
 .mfractor/
 
 *.config
-*.resx
-*.json
 *.csproj
