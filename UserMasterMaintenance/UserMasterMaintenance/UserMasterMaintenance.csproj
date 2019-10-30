@@ -77,7 +77,6 @@
     <EmbeddedResource Include="UserMasterMaintenance_ListDisplay.resx">
       <DependentUpon>UserMasterMaintenance_ListDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="departments.json" />
     <EmbeddedResource Include="UsersMasterMaintenance_InputDisplay.resx">
       <DependentUpon>UsersMasterMaintenance_InputDisplay.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,7 +107,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="users.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
