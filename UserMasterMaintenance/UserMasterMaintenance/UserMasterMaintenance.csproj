@@ -80,6 +80,9 @@
     <EmbeddedResource Include="UsersMasterMaintenance_InputDisplay.resx">
       <DependentUpon>UsersMasterMaintenance_InputDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="departments.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ConfirmDisplay.datasource" />
     <None Include="Properties\DataSources\ConfirmDisplay.Screens.datasource" />
@@ -107,6 +110,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
