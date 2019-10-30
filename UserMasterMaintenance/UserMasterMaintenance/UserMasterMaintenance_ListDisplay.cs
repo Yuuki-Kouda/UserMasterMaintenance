@@ -129,27 +129,34 @@ namespace UserMasterMaintenance
 		/// <returns></returns>
 		private string RoadFile()
 		{
-			var JsonFilePath = "";
+			var filePath = "";
 			var DataListJsonText = "";
+			System.Reflection.Assembly myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 
 			switch (JsonFileTypeParam)
 			{
 				case JsonFileType.UserJsonType:
-					JsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
+
+					filePath = Path.GetFullPath("..\\users.json");
+					using (StreamReader streamReader = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
+					{
+						//デシリアライズ前テキスト
+						DataListJsonText = streamReader.ReadToEnd();
+					}
 					break;
 
 				case JsonFileType.DepartmentsJsonType:
-					JsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+
+					filePath = Path.GetFullPath(@"..\\departments.json");
+					using (StreamReader streamReader = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
+					{
+						//デシリアライズ前テキスト
+						DataListJsonText = streamReader.ReadToEnd();
+					}
 					break;
 
 				default:
 					break;
-			}
-
-			using (StreamReader streamReader = new StreamReader(JsonFilePath, Encoding.GetEncoding("shift_jis")))
-			{
-				//デシリアライズ前テキスト
-				DataListJsonText = streamReader.ReadToEnd();
 			}
 			return DataListJsonText;
 		}
@@ -229,7 +236,7 @@ namespace UserMasterMaintenance
 			selectionUser.UserAge = (int)dataGridView1[3, row].Value;
 			selectionUser.UserGender = (string)dataGridView1[4, row].Value;
 			selectionUser.UserAffiliation = (string)dataGridView1[5, row].Value;
-			
+
 			return selectionUser;
 		}
 
@@ -288,27 +295,30 @@ namespace UserMasterMaintenance
 		/// <param name="jsonText"></param>
 		private void SaveFile(string jsonText)
 		{
-			var jsonFilePath = "";
+			var filePath = "";
 
 			switch (JsonFileTypeParam)
 			{
 				case JsonFileType.UserJsonType:
-					jsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\users.json";
+
+					filePath = Path.GetFullPath("..\\users.json");
+					using (StreamWriter streamWriter = new StreamWriter(filePath, false, Encoding.UTF8))
+					{
+						streamWriter.Write(jsonText);
+					}
 					break;
 
 				case JsonFileType.DepartmentsJsonType:
-					jsonFilePath = @"C:\Users\Kouda\Desktop\幸田有生_研修\ユーザマスタメンテ\UserMasterMaintenance\UserMasterMaintenance\UserMasterMaintenance\departments.json";
+
+					filePath = Path.GetFullPath(@"..\\departments.json");
+					using (StreamWriter streamWriter = new StreamWriter(filePath, false, Encoding.UTF8))
+					{
+						streamWriter.Write(jsonText);
+					}
 					break;
 
 				default:
 					break;
-			}
-
-			//ファイルへ書き込み
-			using (StreamWriter streamWriter =
-				new StreamWriter(jsonFilePath, false, Encoding.UTF8))
-			{
-				streamWriter.Write(jsonText);
 			}
 			return;
 		}
