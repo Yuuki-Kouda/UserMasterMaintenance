@@ -137,7 +137,7 @@ namespace UserMasterMaintenance
 			{
 				case JsonFileType.UserJsonType:
 
-					filePath = Path.GetFullPath("..\\users.json");
+					filePath = Path.GetFullPath(@"..\\Debug\users.json");
 					using (StreamReader streamReader = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
 					{
 						//デシリアライズ前テキスト
@@ -147,7 +147,7 @@ namespace UserMasterMaintenance
 
 				case JsonFileType.DepartmentsJsonType:
 
-					filePath = Path.GetFullPath(@"..\\departments.json");
+					filePath = Path.GetFullPath(@"..\\Debug\departments.json");
 					using (StreamReader streamReader = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
 					{
 						//デシリアライズ前テキスト
@@ -301,7 +301,7 @@ namespace UserMasterMaintenance
 			{
 				case JsonFileType.UserJsonType:
 
-					filePath = Path.GetFullPath("..\\users.json");
+					filePath = Path.GetFullPath(@"..\\Debug\users.json");
 					using (StreamWriter streamWriter = new StreamWriter(filePath, false, Encoding.UTF8))
 					{
 						streamWriter.Write(jsonText);
@@ -310,7 +310,7 @@ namespace UserMasterMaintenance
 
 				case JsonFileType.DepartmentsJsonType:
 
-					filePath = Path.GetFullPath(@"..\\departments.json");
+					filePath = Path.GetFullPath(@"..\\Debug\departments.json");
 					using (StreamWriter streamWriter = new StreamWriter(filePath, false, Encoding.UTF8))
 					{
 						streamWriter.Write(jsonText);
